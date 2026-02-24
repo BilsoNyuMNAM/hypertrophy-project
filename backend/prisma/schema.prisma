@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  runtime = "cloudflare"
+  output   = "../src/generated/prisma"
+}
+ generator clientNode {
+     provider = "prisma-client"
+     runtime   = "nodejs"
+     output    = "../src/generated/prisma-node"
+   }
+   
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Mesocycle{
+  id Int @id @default(autoincrement())
+  name String @unique
+  frequency Frequency[]
+  week Week[] 
+}
+
+//completed
+model Week{
+  id Int @id @default(autoincrement())
+  week_name String
+  mesocycleId Int
+  mesocycle Mesocycle @relation(fields:[mesocycleId] , references:[id])
+  startingvolume StartingVolume[]
+}
+
+model StartingVolume{
+  id Int @id @default(autoincrement())
+  set Int 
+  //2 foreign key will be here 
+  //1st foreign key 
+  muscleId Int
+  muscle Muscle @relation(fields: [muscleId], references: [id])
+  //2nd foreign key
+  weekId Int
+  week Week @relation(fields: [weekId], references: [id])
+}
+
+//completed relation between mesocycle and muscle (mesocycle✅, muscle✅)
+model Frequency{
+  id Int @id @default(autoincrement())
+  timesPerWeek Int 
+  muscleId Int
+  muscle Muscle @relation(fields: [muscleId], references: [id])
+  mesocycleId Int
+  mesocycle Mesocycle @relation(fields: [mesocycleId], references: [id])
+}
+
+//complete the muscle first (starting_volume✅, frequency✅)
+model Muscle{
+  id Int @id @default(autoincrement())
+  muscle_name String @unique
+  frequency Frequency[]
+  
+  startingvolume StartingVolume[]
+}

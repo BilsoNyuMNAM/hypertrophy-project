@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@theme {
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-dmSans: "DM Sans", sans-serif;
+}
