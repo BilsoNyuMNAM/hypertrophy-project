@@ -1,8 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import Weekcard from "../components/Weekcard"
-
-
+import VolumeOverview from "../components/Volumeoverview"
 export default function Mesocycleui(){
     const {id} = useParams()
     const [mesoName, setMesoname] = useState("name")
@@ -33,6 +31,7 @@ export default function Mesocycleui(){
                 <div className="px-8 py-6">
                     <button onClick={() => navigate(-1)} className="mb-10">← Back to Mesocycles</button>
                     <div>
+                        <div className="font-spaceMono color-[ #444] text-gray-400 font-thin text-xs">MESOCYCLE </div>
                         <div><span className="font-bebas text-5xl">{mesoName}</span></div>
                     </div>
                 </div>
@@ -96,15 +95,9 @@ export default function Mesocycleui(){
                         </svg>
                     </div>
                     <div className="px-8 py-6">
-                        {/* <h3 className="text-2xl font-bold text-white mb-4">MUSLCE VOLUME BREAKDOWN</h3> */}
-                        <div className="grid grid-cols-3 gap-3">
-                            {weekName==null? "Loading":weekName.map((week)=>{
-                                console.log("weekname map", week.week_name)
-                                console.log("weekname map", typeof(week.week_name))
-                                return <Weekcard  week_name={week.week_name}/>
-                            })} 
-                        </div>
+                        <VolumeOverview weekName={weekName}/>
                     </div>
+                    
                 </div>
             </div>
             

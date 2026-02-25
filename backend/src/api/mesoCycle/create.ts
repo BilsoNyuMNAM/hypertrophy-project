@@ -73,7 +73,9 @@ cycle.get("/:id", async (c)=>{
                 where:{
                     mesocycleId:Number(id)
                 }
-            })
+            }),
+        
+        
         }
     console.log("result", result)
     return c.json({
