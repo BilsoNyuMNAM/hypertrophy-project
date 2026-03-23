@@ -6,6 +6,8 @@ export default function Addmesobutton(){
         navigate("/create-mesocycle")
     }
     return(
-         <button className="px-4 py-2.5 border-2 rounded-lg cursor-pointer"onClick={Navigateto}>+ Create Mesocycle</button>
+         <button className=" bg-[#c8ff00] text-black  font-spaceMono text-[12px] tracking-wide px-5 py-2.5 rounded-full" onClick={Navigateto}>
+            <span className="text-lg leading-none">+ Create Mesocycle</span>
+         </button>
     )
 }

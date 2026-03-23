@@ -40,18 +40,21 @@ export type WeekMinAggregateOutputType = {
   id: number | null
   week_name: string | null
   mesocycleId: number | null
+  completed: boolean | null
 }
 
 export type WeekMaxAggregateOutputType = {
   id: number | null
   week_name: string | null
   mesocycleId: number | null
+  completed: boolean | null
 }
 
 export type WeekCountAggregateOutputType = {
   id: number
   week_name: number
   mesocycleId: number
+  completed: number
   _all: number
 }
 
@@ -70,18 +73,21 @@ export type WeekMinAggregateInputType = {
   id?: true
   week_name?: true
   mesocycleId?: true
+  completed?: true
 }
 
 export type WeekMaxAggregateInputType = {
   id?: true
   week_name?: true
   mesocycleId?: true
+  completed?: true
 }
 
 export type WeekCountAggregateInputType = {
   id?: true
   week_name?: true
   mesocycleId?: true
+  completed?: true
   _all?: true
 }
 
@@ -175,6 +181,7 @@ export type WeekGroupByOutputType = {
   id: number
   week_name: string
   mesocycleId: number
+  completed: boolean | null
   _count: WeekCountAggregateOutputType | null
   _avg: WeekAvgAggregateOutputType | null
   _sum: WeekSumAggregateOutputType | null
@@ -204,16 +211,20 @@ export type WeekWhereInput = {
   id?: Prisma.IntFilter<"Week"> | number
   week_name?: Prisma.StringFilter<"Week"> | string
   mesocycleId?: Prisma.IntFilter<"Week"> | number
+  completed?: Prisma.BoolNullableFilter<"Week"> | boolean | null
   mesocycle?: Prisma.XOR<Prisma.MesocycleScalarRelationFilter, Prisma.MesocycleWhereInput>
   startingvolume?: Prisma.StartingVolumeListRelationFilter
+  session?: Prisma.SessionListRelationFilter
 }
 
 export type WeekOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   week_name?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
+  completed?: Prisma.SortOrderInput | Prisma.SortOrder
   mesocycle?: Prisma.MesocycleOrderByWithRelationInput
   startingvolume?: Prisma.StartingVolumeOrderByRelationAggregateInput
+  session?: Prisma.SessionOrderByRelationAggregateInput
 }
 
 export type WeekWhereUniqueInput = Prisma.AtLeast<{
@@ -223,14 +234,17 @@ export type WeekWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WeekWhereInput | Prisma.WeekWhereInput[]
   week_name?: Prisma.StringFilter<"Week"> | string
   mesocycleId?: Prisma.IntFilter<"Week"> | number
+  completed?: Prisma.BoolNullableFilter<"Week"> | boolean | null
   mesocycle?: Prisma.XOR<Prisma.MesocycleScalarRelationFilter, Prisma.MesocycleWhereInput>
   startingvolume?: Prisma.StartingVolumeListRelationFilter
+  session?: Prisma.SessionListRelationFilter
 }, "id">
 
 export type WeekOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   week_name?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
+  completed?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.WeekCountOrderByAggregateInput
   _avg?: Prisma.WeekAvgOrderByAggregateInput
   _max?: Prisma.WeekMaxOrderByAggregateInput
@@ -245,48 +259,60 @@ export type WeekScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Week"> | number
   week_name?: Prisma.StringWithAggregatesFilter<"Week"> | string
   mesocycleId?: Prisma.IntWithAggregatesFilter<"Week"> | number
+  completed?: Prisma.BoolNullableWithAggregatesFilter<"Week"> | boolean | null
 }
 
 export type WeekCreateInput = {
   week_name: string
+  completed?: boolean | null
   mesocycle: Prisma.MesocycleCreateNestedOneWithoutWeekInput
   startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutWeekInput
+  session?: Prisma.SessionCreateNestedManyWithoutWeekInput
 }
 
 export type WeekUncheckedCreateInput = {
   id?: number
   week_name: string
   mesocycleId: number
+  completed?: boolean | null
   startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutWeekInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutWeekInput
 }
 
 export type WeekUpdateInput = {
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   mesocycle?: Prisma.MesocycleUpdateOneRequiredWithoutWeekNestedInput
   startingvolume?: Prisma.StartingVolumeUpdateManyWithoutWeekNestedInput
+  session?: Prisma.SessionUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutWeekNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekCreateManyInput = {
   id?: number
   week_name: string
   mesocycleId: number
+  completed?: boolean | null
 }
 
 export type WeekUpdateManyMutationInput = {
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type WeekUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type WeekListRelationFilter = {
@@ -303,6 +329,7 @@ export type WeekCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   week_name?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
+  completed?: Prisma.SortOrder
 }
 
 export type WeekAvgOrderByAggregateInput = {
@@ -314,12 +341,14 @@ export type WeekMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   week_name?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
+  completed?: Prisma.SortOrder
 }
 
 export type WeekMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   week_name?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
+  completed?: Prisma.SortOrder
 }
 
 export type WeekSumOrderByAggregateInput = {
@@ -374,6 +403,10 @@ export type WeekUncheckedUpdateManyWithoutMesocycleNestedInput = {
   deleteMany?: Prisma.WeekScalarWhereInput | Prisma.WeekScalarWhereInput[]
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type WeekCreateNestedOneWithoutStartingvolumeInput = {
   create?: Prisma.XOR<Prisma.WeekCreateWithoutStartingvolumeInput, Prisma.WeekUncheckedCreateWithoutStartingvolumeInput>
   connectOrCreate?: Prisma.WeekCreateOrConnectWithoutStartingvolumeInput
@@ -388,15 +421,33 @@ export type WeekUpdateOneRequiredWithoutStartingvolumeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WeekUpdateToOneWithWhereWithoutStartingvolumeInput, Prisma.WeekUpdateWithoutStartingvolumeInput>, Prisma.WeekUncheckedUpdateWithoutStartingvolumeInput>
 }
 
+export type WeekCreateNestedOneWithoutSessionInput = {
+  create?: Prisma.XOR<Prisma.WeekCreateWithoutSessionInput, Prisma.WeekUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.WeekCreateOrConnectWithoutSessionInput
+  connect?: Prisma.WeekWhereUniqueInput
+}
+
+export type WeekUpdateOneRequiredWithoutSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.WeekCreateWithoutSessionInput, Prisma.WeekUncheckedCreateWithoutSessionInput>
+  connectOrCreate?: Prisma.WeekCreateOrConnectWithoutSessionInput
+  upsert?: Prisma.WeekUpsertWithoutSessionInput
+  connect?: Prisma.WeekWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WeekUpdateToOneWithWhereWithoutSessionInput, Prisma.WeekUpdateWithoutSessionInput>, Prisma.WeekUncheckedUpdateWithoutSessionInput>
+}
+
 export type WeekCreateWithoutMesocycleInput = {
   week_name: string
+  completed?: boolean | null
   startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutWeekInput
+  session?: Prisma.SessionCreateNestedManyWithoutWeekInput
 }
 
 export type WeekUncheckedCreateWithoutMesocycleInput = {
   id?: number
   week_name: string
+  completed?: boolean | null
   startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutWeekInput
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutWeekInput
 }
 
 export type WeekCreateOrConnectWithoutMesocycleInput = {
@@ -432,17 +483,22 @@ export type WeekScalarWhereInput = {
   id?: Prisma.IntFilter<"Week"> | number
   week_name?: Prisma.StringFilter<"Week"> | string
   mesocycleId?: Prisma.IntFilter<"Week"> | number
+  completed?: Prisma.BoolNullableFilter<"Week"> | boolean | null
 }
 
 export type WeekCreateWithoutStartingvolumeInput = {
   week_name: string
+  completed?: boolean | null
   mesocycle: Prisma.MesocycleCreateNestedOneWithoutWeekInput
+  session?: Prisma.SessionCreateNestedManyWithoutWeekInput
 }
 
 export type WeekUncheckedCreateWithoutStartingvolumeInput = {
   id?: number
   week_name: string
   mesocycleId: number
+  completed?: boolean | null
+  session?: Prisma.SessionUncheckedCreateNestedManyWithoutWeekInput
 }
 
 export type WeekCreateOrConnectWithoutStartingvolumeInput = {
@@ -463,34 +519,90 @@ export type WeekUpdateToOneWithWhereWithoutStartingvolumeInput = {
 
 export type WeekUpdateWithoutStartingvolumeInput = {
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   mesocycle?: Prisma.MesocycleUpdateOneRequiredWithoutWeekNestedInput
+  session?: Prisma.SessionUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekUncheckedUpdateWithoutStartingvolumeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  session?: Prisma.SessionUncheckedUpdateManyWithoutWeekNestedInput
+}
+
+export type WeekCreateWithoutSessionInput = {
+  week_name: string
+  completed?: boolean | null
+  mesocycle: Prisma.MesocycleCreateNestedOneWithoutWeekInput
+  startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutWeekInput
+}
+
+export type WeekUncheckedCreateWithoutSessionInput = {
+  id?: number
+  week_name: string
+  mesocycleId: number
+  completed?: boolean | null
+  startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutWeekInput
+}
+
+export type WeekCreateOrConnectWithoutSessionInput = {
+  where: Prisma.WeekWhereUniqueInput
+  create: Prisma.XOR<Prisma.WeekCreateWithoutSessionInput, Prisma.WeekUncheckedCreateWithoutSessionInput>
+}
+
+export type WeekUpsertWithoutSessionInput = {
+  update: Prisma.XOR<Prisma.WeekUpdateWithoutSessionInput, Prisma.WeekUncheckedUpdateWithoutSessionInput>
+  create: Prisma.XOR<Prisma.WeekCreateWithoutSessionInput, Prisma.WeekUncheckedCreateWithoutSessionInput>
+  where?: Prisma.WeekWhereInput
+}
+
+export type WeekUpdateToOneWithWhereWithoutSessionInput = {
+  where?: Prisma.WeekWhereInput
+  data: Prisma.XOR<Prisma.WeekUpdateWithoutSessionInput, Prisma.WeekUncheckedUpdateWithoutSessionInput>
+}
+
+export type WeekUpdateWithoutSessionInput = {
+  week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mesocycle?: Prisma.MesocycleUpdateOneRequiredWithoutWeekNestedInput
+  startingvolume?: Prisma.StartingVolumeUpdateManyWithoutWeekNestedInput
+}
+
+export type WeekUncheckedUpdateWithoutSessionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekCreateManyMesocycleInput = {
   id?: number
   week_name: string
+  completed?: boolean | null
 }
 
 export type WeekUpdateWithoutMesocycleInput = {
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   startingvolume?: Prisma.StartingVolumeUpdateManyWithoutWeekNestedInput
+  session?: Prisma.SessionUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekUncheckedUpdateWithoutMesocycleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutWeekNestedInput
+  session?: Prisma.SessionUncheckedUpdateManyWithoutWeekNestedInput
 }
 
 export type WeekUncheckedUpdateManyWithoutMesocycleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   week_name?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 
@@ -500,10 +612,12 @@ export type WeekUncheckedUpdateManyWithoutMesocycleInput = {
 
 export type WeekCountOutputType = {
   startingvolume: number
+  session: number
 }
 
 export type WeekCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   startingvolume?: boolean | WeekCountOutputTypeCountStartingvolumeArgs
+  session?: boolean | WeekCountOutputTypeCountSessionArgs
 }
 
 /**
@@ -523,13 +637,22 @@ export type WeekCountOutputTypeCountStartingvolumeArgs<ExtArgs extends runtime.T
   where?: Prisma.StartingVolumeWhereInput
 }
 
+/**
+ * WeekCountOutputType without action
+ */
+export type WeekCountOutputTypeCountSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
 
 export type WeekSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   week_name?: boolean
   mesocycleId?: boolean
+  completed?: boolean
   mesocycle?: boolean | Prisma.MesocycleDefaultArgs<ExtArgs>
   startingvolume?: boolean | Prisma.Week$startingvolumeArgs<ExtArgs>
+  session?: boolean | Prisma.Week$sessionArgs<ExtArgs>
   _count?: boolean | Prisma.WeekCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["week"]>
 
@@ -537,6 +660,7 @@ export type WeekSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   week_name?: boolean
   mesocycleId?: boolean
+  completed?: boolean
   mesocycle?: boolean | Prisma.MesocycleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["week"]>
 
@@ -544,6 +668,7 @@ export type WeekSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   week_name?: boolean
   mesocycleId?: boolean
+  completed?: boolean
   mesocycle?: boolean | Prisma.MesocycleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["week"]>
 
@@ -551,12 +676,14 @@ export type WeekSelectScalar = {
   id?: boolean
   week_name?: boolean
   mesocycleId?: boolean
+  completed?: boolean
 }
 
-export type WeekOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "week_name" | "mesocycleId", ExtArgs["result"]["week"]>
+export type WeekOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "week_name" | "mesocycleId" | "completed", ExtArgs["result"]["week"]>
 export type WeekInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   mesocycle?: boolean | Prisma.MesocycleDefaultArgs<ExtArgs>
   startingvolume?: boolean | Prisma.Week$startingvolumeArgs<ExtArgs>
+  session?: boolean | Prisma.Week$sessionArgs<ExtArgs>
   _count?: boolean | Prisma.WeekCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WeekIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -571,11 +698,13 @@ export type $WeekPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     mesocycle: Prisma.$MesocyclePayload<ExtArgs>
     startingvolume: Prisma.$StartingVolumePayload<ExtArgs>[]
+    session: Prisma.$SessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     week_name: string
     mesocycleId: number
+    completed: boolean | null
   }, ExtArgs["result"]["week"]>
   composites: {}
 }
@@ -972,6 +1101,7 @@ export interface Prisma__WeekClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   mesocycle<T extends Prisma.MesocycleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MesocycleDefaultArgs<ExtArgs>>): Prisma.Prisma__MesocycleClient<runtime.Types.Result.GetResult<Prisma.$MesocyclePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   startingvolume<T extends Prisma.Week$startingvolumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Week$startingvolumeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StartingVolumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  session<T extends Prisma.Week$sessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Week$sessionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1004,6 +1134,7 @@ export interface WeekFieldRefs {
   readonly id: Prisma.FieldRef<"Week", 'Int'>
   readonly week_name: Prisma.FieldRef<"Week", 'String'>
   readonly mesocycleId: Prisma.FieldRef<"Week", 'Int'>
+  readonly completed: Prisma.FieldRef<"Week", 'Boolean'>
 }
     
 
@@ -1421,6 +1552,30 @@ export type Week$startingvolumeArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.StartingVolumeScalarFieldEnum | Prisma.StartingVolumeScalarFieldEnum[]
+}
+
+/**
+ * Week.session
+ */
+export type Week$sessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**

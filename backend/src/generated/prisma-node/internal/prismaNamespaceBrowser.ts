@@ -55,7 +55,14 @@ export const ModelName = {
   Week: 'Week',
   StartingVolume: 'StartingVolume',
   Frequency: 'Frequency',
-  Muscle: 'Muscle'
+  Muscle: 'Muscle',
+  Session: 'Session',
+  Sorenessfeedback: 'Sorenessfeedback',
+  Performancefeedback: 'Performancefeedback',
+  SessionMuscleFeedback: 'SessionMuscleFeedback',
+  Exercise: 'Exercise',
+  Exerciselog: 'Exerciselog',
+  Set: 'Set'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -85,7 +92,8 @@ export type MesocycleScalarFieldEnum = (typeof MesocycleScalarFieldEnum)[keyof t
 export const WeekScalarFieldEnum = {
   id: 'id',
   week_name: 'week_name',
-  mesocycleId: 'mesocycleId'
+  mesocycleId: 'mesocycleId',
+  completed: 'completed'
 } as const
 
 export type WeekScalarFieldEnum = (typeof WeekScalarFieldEnum)[keyof typeof WeekScalarFieldEnum]
@@ -119,6 +127,73 @@ export const MuscleScalarFieldEnum = {
 export type MuscleScalarFieldEnum = (typeof MuscleScalarFieldEnum)[keyof typeof MuscleScalarFieldEnum]
 
 
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  session_name: 'session_name',
+  weekId: 'weekId'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const SorenessfeedbackScalarFieldEnum = {
+  id: 'id',
+  soreness_score: 'soreness_score',
+  description: 'description'
+} as const
+
+export type SorenessfeedbackScalarFieldEnum = (typeof SorenessfeedbackScalarFieldEnum)[keyof typeof SorenessfeedbackScalarFieldEnum]
+
+
+export const PerformancefeedbackScalarFieldEnum = {
+  id: 'id',
+  performance_score: 'performance_score',
+  description: 'description'
+} as const
+
+export type PerformancefeedbackScalarFieldEnum = (typeof PerformancefeedbackScalarFieldEnum)[keyof typeof PerformancefeedbackScalarFieldEnum]
+
+
+export const SessionMuscleFeedbackScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  muscleId: 'muscleId',
+  sorenessfeedbackId: 'sorenessfeedbackId',
+  performancefeedbackId: 'performancefeedbackId'
+} as const
+
+export type SessionMuscleFeedbackScalarFieldEnum = (typeof SessionMuscleFeedbackScalarFieldEnum)[keyof typeof SessionMuscleFeedbackScalarFieldEnum]
+
+
+export const ExerciseScalarFieldEnum = {
+  id: 'id',
+  exercise_name: 'exercise_name',
+  muscleId: 'muscleId'
+} as const
+
+export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
+
+
+export const ExerciselogScalarFieldEnum = {
+  id: 'id',
+  exerciseId: 'exerciseId',
+  sessionId: 'sessionId'
+} as const
+
+export type ExerciselogScalarFieldEnum = (typeof ExerciselogScalarFieldEnum)[keyof typeof ExerciselogScalarFieldEnum]
+
+
+export const SetScalarFieldEnum = {
+  id: 'id',
+  reps: 'reps',
+  weight: 'weight',
+  rir: 'rir',
+  exerciselogId: 'exerciselogId'
+} as const
+
+export type SetScalarFieldEnum = (typeof SetScalarFieldEnum)[keyof typeof SetScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -133,4 +208,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

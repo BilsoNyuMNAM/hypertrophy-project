@@ -25,6 +25,7 @@ model Mesocycle{
   name String @unique
   frequency Frequency[]
   week Week[] 
+
 }
 
 //completed
@@ -32,8 +33,10 @@ model Week{
   id Int @id @default(autoincrement())
   week_name String
   mesocycleId Int
+  completed Boolean? @default(false)
   mesocycle Mesocycle @relation(fields:[mesocycleId] , references:[id])
   startingvolume StartingVolume[]
+  session Session[]
 }
 
 model StartingVolume{
@@ -63,6 +66,76 @@ model Muscle{
   id Int @id @default(autoincrement())
   muscle_name String @unique
   frequency Frequency[]
-  
+  exercise Exercise[]
   startingvolume StartingVolume[]
+  sessionmusclefeedback SessionMuscleFeedback[]
+}
+
+
+model Session{
+  id Int @id @default(autoincrement())
+  session_name String
+  weekId Int
+  week Week @relation(fields:[weekId], references:[id])
+  exerciselogs Exerciselog[] 
+  sessionmusclefeedback SessionMuscleFeedback[]
+}
+
+// Lookup table - fixed 4 rows, never changes
+model Sorenessfeedback{
+  id Int @id @default(autoincrement())
+  soreness_score Int 
+  description String
+  sessionmusclefeedback SessionMuscleFeedback[]
+}
+
+// Lookup table - fixed 4 rows, never changes
+model Performancefeedback{
+  id Int @id @default(autoincrement())
+  performance_score Int 
+  description String
+  sessionmusclefeedback SessionMuscleFeedback[]
+}
+
+// Junction table - links session + muscle to their selected feedback
+model SessionMuscleFeedback{
+  id Int @id @default(autoincrement())
+  sessionId Int
+  session Session @relation(fields:[sessionId], references:[id])
+  muscleId Int
+  muscle Muscle @relation(fields:[muscleId], references:[id])
+  sorenessfeedbackId Int?
+  sorenessfeedback Sorenessfeedback? @relation(fields:[sorenessfeedbackId], references:[id])
+  performancefeedbackId Int?
+  performancefeedback Performancefeedback? @relation(fields:[performancefeedbackId], references:[id])
+  
+  @@unique([sessionId, muscleId]) // Only one feedback per muscle per session
+}
+
+model Exercise{
+  id Int @id @default(autoincrement())
+  exercise_name String @unique
+  exerciselogs Exerciselog[]
+  muscleId Int
+  muscle Muscle @relation(fields:[muscleId], references:[id])
+  
+}
+
+model Exerciselog{
+  id Int @id @default(autoincrement())
+  exerciseId Int
+  sessionId Int
+  session Session @relation(fields:[sessionId], references: [id])
+  exercise Exercise @relation(fields:[exerciseId], references: [id])
+  set Set[]
+  @@unique([exerciseId, sessionId])
+}
+
+model Set{
+  id Int @id @default(autoincrement())
+  reps Int
+  weight Float 
+  rir Int
+  exerciselogId Int 
+  exerciselog Exerciselog @relation(fields:[exerciselogId], references: [id])
 }

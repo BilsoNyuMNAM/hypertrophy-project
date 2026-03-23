@@ -193,14 +193,18 @@ export type MuscleWhereInput = {
   id?: Prisma.IntFilter<"Muscle"> | number
   muscle_name?: Prisma.StringFilter<"Muscle"> | string
   frequency?: Prisma.FrequencyListRelationFilter
+  exercise?: Prisma.ExerciseListRelationFilter
   startingvolume?: Prisma.StartingVolumeListRelationFilter
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackListRelationFilter
 }
 
 export type MuscleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   muscle_name?: Prisma.SortOrder
   frequency?: Prisma.FrequencyOrderByRelationAggregateInput
+  exercise?: Prisma.ExerciseOrderByRelationAggregateInput
   startingvolume?: Prisma.StartingVolumeOrderByRelationAggregateInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackOrderByRelationAggregateInput
 }
 
 export type MuscleWhereUniqueInput = Prisma.AtLeast<{
@@ -210,7 +214,9 @@ export type MuscleWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MuscleWhereInput[]
   NOT?: Prisma.MuscleWhereInput | Prisma.MuscleWhereInput[]
   frequency?: Prisma.FrequencyListRelationFilter
+  exercise?: Prisma.ExerciseListRelationFilter
   startingvolume?: Prisma.StartingVolumeListRelationFilter
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackListRelationFilter
 }, "id" | "muscle_name">
 
 export type MuscleOrderByWithAggregationInput = {
@@ -234,27 +240,35 @@ export type MuscleScalarWhereWithAggregatesInput = {
 export type MuscleCreateInput = {
   muscle_name: string
   frequency?: Prisma.FrequencyCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseCreateNestedManyWithoutMuscleInput
   startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleUncheckedCreateInput = {
   id?: number
   muscle_name: string
   frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseUncheckedCreateNestedManyWithoutMuscleInput
   startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleUpdateInput = {
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.FrequencyUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUpdateManyWithoutMuscleNestedInput
   startingvolume?: Prisma.StartingVolumeUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutMuscleNestedInput
 }
 
 export type MuscleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUncheckedUpdateManyWithoutMuscleNestedInput
   startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleNestedInput
 }
 
 export type MuscleCreateManyInput = {
@@ -327,15 +341,47 @@ export type MuscleUpdateOneRequiredWithoutFrequencyNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MuscleUpdateToOneWithWhereWithoutFrequencyInput, Prisma.MuscleUpdateWithoutFrequencyInput>, Prisma.MuscleUncheckedUpdateWithoutFrequencyInput>
 }
 
+export type MuscleCreateNestedOneWithoutSessionmusclefeedbackInput = {
+  create?: Prisma.XOR<Prisma.MuscleCreateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedCreateWithoutSessionmusclefeedbackInput>
+  connectOrCreate?: Prisma.MuscleCreateOrConnectWithoutSessionmusclefeedbackInput
+  connect?: Prisma.MuscleWhereUniqueInput
+}
+
+export type MuscleUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput = {
+  create?: Prisma.XOR<Prisma.MuscleCreateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedCreateWithoutSessionmusclefeedbackInput>
+  connectOrCreate?: Prisma.MuscleCreateOrConnectWithoutSessionmusclefeedbackInput
+  upsert?: Prisma.MuscleUpsertWithoutSessionmusclefeedbackInput
+  connect?: Prisma.MuscleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MuscleUpdateToOneWithWhereWithoutSessionmusclefeedbackInput, Prisma.MuscleUpdateWithoutSessionmusclefeedbackInput>, Prisma.MuscleUncheckedUpdateWithoutSessionmusclefeedbackInput>
+}
+
+export type MuscleCreateNestedOneWithoutExerciseInput = {
+  create?: Prisma.XOR<Prisma.MuscleCreateWithoutExerciseInput, Prisma.MuscleUncheckedCreateWithoutExerciseInput>
+  connectOrCreate?: Prisma.MuscleCreateOrConnectWithoutExerciseInput
+  connect?: Prisma.MuscleWhereUniqueInput
+}
+
+export type MuscleUpdateOneRequiredWithoutExerciseNestedInput = {
+  create?: Prisma.XOR<Prisma.MuscleCreateWithoutExerciseInput, Prisma.MuscleUncheckedCreateWithoutExerciseInput>
+  connectOrCreate?: Prisma.MuscleCreateOrConnectWithoutExerciseInput
+  upsert?: Prisma.MuscleUpsertWithoutExerciseInput
+  connect?: Prisma.MuscleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MuscleUpdateToOneWithWhereWithoutExerciseInput, Prisma.MuscleUpdateWithoutExerciseInput>, Prisma.MuscleUncheckedUpdateWithoutExerciseInput>
+}
+
 export type MuscleCreateWithoutStartingvolumeInput = {
   muscle_name: string
   frequency?: Prisma.FrequencyCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleUncheckedCreateWithoutStartingvolumeInput = {
   id?: number
   muscle_name: string
   frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseUncheckedCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleCreateOrConnectWithoutStartingvolumeInput = {
@@ -357,23 +403,31 @@ export type MuscleUpdateToOneWithWhereWithoutStartingvolumeInput = {
 export type MuscleUpdateWithoutStartingvolumeInput = {
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.FrequencyUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutMuscleNestedInput
 }
 
 export type MuscleUncheckedUpdateWithoutStartingvolumeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUncheckedUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleNestedInput
 }
 
 export type MuscleCreateWithoutFrequencyInput = {
   muscle_name: string
+  exercise?: Prisma.ExerciseCreateNestedManyWithoutMuscleInput
   startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleUncheckedCreateWithoutFrequencyInput = {
   id?: number
   muscle_name: string
+  exercise?: Prisma.ExerciseUncheckedCreateNestedManyWithoutMuscleInput
   startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutMuscleInput
 }
 
 export type MuscleCreateOrConnectWithoutFrequencyInput = {
@@ -394,13 +448,109 @@ export type MuscleUpdateToOneWithWhereWithoutFrequencyInput = {
 
 export type MuscleUpdateWithoutFrequencyInput = {
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exercise?: Prisma.ExerciseUpdateManyWithoutMuscleNestedInput
   startingvolume?: Prisma.StartingVolumeUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutMuscleNestedInput
 }
 
 export type MuscleUncheckedUpdateWithoutFrequencyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exercise?: Prisma.ExerciseUncheckedUpdateManyWithoutMuscleNestedInput
   startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleNestedInput
+}
+
+export type MuscleCreateWithoutSessionmusclefeedbackInput = {
+  muscle_name: string
+  frequency?: Prisma.FrequencyCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseCreateNestedManyWithoutMuscleInput
+  startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutMuscleInput
+}
+
+export type MuscleUncheckedCreateWithoutSessionmusclefeedbackInput = {
+  id?: number
+  muscle_name: string
+  frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMuscleInput
+  exercise?: Prisma.ExerciseUncheckedCreateNestedManyWithoutMuscleInput
+  startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutMuscleInput
+}
+
+export type MuscleCreateOrConnectWithoutSessionmusclefeedbackInput = {
+  where: Prisma.MuscleWhereUniqueInput
+  create: Prisma.XOR<Prisma.MuscleCreateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedCreateWithoutSessionmusclefeedbackInput>
+}
+
+export type MuscleUpsertWithoutSessionmusclefeedbackInput = {
+  update: Prisma.XOR<Prisma.MuscleUpdateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedUpdateWithoutSessionmusclefeedbackInput>
+  create: Prisma.XOR<Prisma.MuscleCreateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedCreateWithoutSessionmusclefeedbackInput>
+  where?: Prisma.MuscleWhereInput
+}
+
+export type MuscleUpdateToOneWithWhereWithoutSessionmusclefeedbackInput = {
+  where?: Prisma.MuscleWhereInput
+  data: Prisma.XOR<Prisma.MuscleUpdateWithoutSessionmusclefeedbackInput, Prisma.MuscleUncheckedUpdateWithoutSessionmusclefeedbackInput>
+}
+
+export type MuscleUpdateWithoutSessionmusclefeedbackInput = {
+  muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.FrequencyUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUpdateManyWithoutMuscleNestedInput
+  startingvolume?: Prisma.StartingVolumeUpdateManyWithoutMuscleNestedInput
+}
+
+export type MuscleUncheckedUpdateWithoutSessionmusclefeedbackInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMuscleNestedInput
+  exercise?: Prisma.ExerciseUncheckedUpdateManyWithoutMuscleNestedInput
+  startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutMuscleNestedInput
+}
+
+export type MuscleCreateWithoutExerciseInput = {
+  muscle_name: string
+  frequency?: Prisma.FrequencyCreateNestedManyWithoutMuscleInput
+  startingvolume?: Prisma.StartingVolumeCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutMuscleInput
+}
+
+export type MuscleUncheckedCreateWithoutExerciseInput = {
+  id?: number
+  muscle_name: string
+  frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMuscleInput
+  startingvolume?: Prisma.StartingVolumeUncheckedCreateNestedManyWithoutMuscleInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutMuscleInput
+}
+
+export type MuscleCreateOrConnectWithoutExerciseInput = {
+  where: Prisma.MuscleWhereUniqueInput
+  create: Prisma.XOR<Prisma.MuscleCreateWithoutExerciseInput, Prisma.MuscleUncheckedCreateWithoutExerciseInput>
+}
+
+export type MuscleUpsertWithoutExerciseInput = {
+  update: Prisma.XOR<Prisma.MuscleUpdateWithoutExerciseInput, Prisma.MuscleUncheckedUpdateWithoutExerciseInput>
+  create: Prisma.XOR<Prisma.MuscleCreateWithoutExerciseInput, Prisma.MuscleUncheckedCreateWithoutExerciseInput>
+  where?: Prisma.MuscleWhereInput
+}
+
+export type MuscleUpdateToOneWithWhereWithoutExerciseInput = {
+  where?: Prisma.MuscleWhereInput
+  data: Prisma.XOR<Prisma.MuscleUpdateWithoutExerciseInput, Prisma.MuscleUncheckedUpdateWithoutExerciseInput>
+}
+
+export type MuscleUpdateWithoutExerciseInput = {
+  muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.FrequencyUpdateManyWithoutMuscleNestedInput
+  startingvolume?: Prisma.StartingVolumeUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutMuscleNestedInput
+}
+
+export type MuscleUncheckedUpdateWithoutExerciseInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  muscle_name?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMuscleNestedInput
+  startingvolume?: Prisma.StartingVolumeUncheckedUpdateManyWithoutMuscleNestedInput
+  sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleNestedInput
 }
 
 
@@ -410,12 +560,16 @@ export type MuscleUncheckedUpdateWithoutFrequencyInput = {
 
 export type MuscleCountOutputType = {
   frequency: number
+  exercise: number
   startingvolume: number
+  sessionmusclefeedback: number
 }
 
 export type MuscleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   frequency?: boolean | MuscleCountOutputTypeCountFrequencyArgs
+  exercise?: boolean | MuscleCountOutputTypeCountExerciseArgs
   startingvolume?: boolean | MuscleCountOutputTypeCountStartingvolumeArgs
+  sessionmusclefeedback?: boolean | MuscleCountOutputTypeCountSessionmusclefeedbackArgs
 }
 
 /**
@@ -438,8 +592,22 @@ export type MuscleCountOutputTypeCountFrequencyArgs<ExtArgs extends runtime.Type
 /**
  * MuscleCountOutputType without action
  */
+export type MuscleCountOutputTypeCountExerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExerciseWhereInput
+}
+
+/**
+ * MuscleCountOutputType without action
+ */
 export type MuscleCountOutputTypeCountStartingvolumeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StartingVolumeWhereInput
+}
+
+/**
+ * MuscleCountOutputType without action
+ */
+export type MuscleCountOutputTypeCountSessionmusclefeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionMuscleFeedbackWhereInput
 }
 
 
@@ -447,7 +615,9 @@ export type MuscleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   muscle_name?: boolean
   frequency?: boolean | Prisma.Muscle$frequencyArgs<ExtArgs>
+  exercise?: boolean | Prisma.Muscle$exerciseArgs<ExtArgs>
   startingvolume?: boolean | Prisma.Muscle$startingvolumeArgs<ExtArgs>
+  sessionmusclefeedback?: boolean | Prisma.Muscle$sessionmusclefeedbackArgs<ExtArgs>
   _count?: boolean | Prisma.MuscleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["muscle"]>
 
@@ -469,7 +639,9 @@ export type MuscleSelectScalar = {
 export type MuscleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "muscle_name", ExtArgs["result"]["muscle"]>
 export type MuscleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   frequency?: boolean | Prisma.Muscle$frequencyArgs<ExtArgs>
+  exercise?: boolean | Prisma.Muscle$exerciseArgs<ExtArgs>
   startingvolume?: boolean | Prisma.Muscle$startingvolumeArgs<ExtArgs>
+  sessionmusclefeedback?: boolean | Prisma.Muscle$sessionmusclefeedbackArgs<ExtArgs>
   _count?: boolean | Prisma.MuscleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MuscleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -479,7 +651,9 @@ export type $MusclePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Muscle"
   objects: {
     frequency: Prisma.$FrequencyPayload<ExtArgs>[]
+    exercise: Prisma.$ExercisePayload<ExtArgs>[]
     startingvolume: Prisma.$StartingVolumePayload<ExtArgs>[]
+    sessionmusclefeedback: Prisma.$SessionMuscleFeedbackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -879,7 +1053,9 @@ readonly fields: MuscleFieldRefs;
 export interface Prisma__MuscleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   frequency<T extends Prisma.Muscle$frequencyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Muscle$frequencyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FrequencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  exercise<T extends Prisma.Muscle$exerciseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Muscle$exerciseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   startingvolume<T extends Prisma.Muscle$startingvolumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Muscle$startingvolumeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StartingVolumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessionmusclefeedback<T extends Prisma.Muscle$sessionmusclefeedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Muscle$sessionmusclefeedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionMuscleFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1323,6 +1499,30 @@ export type Muscle$frequencyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Muscle.exercise
+ */
+export type Muscle$exerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Exercise
+   */
+  select?: Prisma.ExerciseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Exercise
+   */
+  omit?: Prisma.ExerciseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExerciseInclude<ExtArgs> | null
+  where?: Prisma.ExerciseWhereInput
+  orderBy?: Prisma.ExerciseOrderByWithRelationInput | Prisma.ExerciseOrderByWithRelationInput[]
+  cursor?: Prisma.ExerciseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExerciseScalarFieldEnum | Prisma.ExerciseScalarFieldEnum[]
+}
+
+/**
  * Muscle.startingvolume
  */
 export type Muscle$startingvolumeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1344,6 +1544,30 @@ export type Muscle$startingvolumeArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.StartingVolumeScalarFieldEnum | Prisma.StartingVolumeScalarFieldEnum[]
+}
+
+/**
+ * Muscle.sessionmusclefeedback
+ */
+export type Muscle$sessionmusclefeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SessionMuscleFeedback
+   */
+  select?: Prisma.SessionMuscleFeedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SessionMuscleFeedback
+   */
+  omit?: Prisma.SessionMuscleFeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionMuscleFeedbackInclude<ExtArgs> | null
+  where?: Prisma.SessionMuscleFeedbackWhereInput
+  orderBy?: Prisma.SessionMuscleFeedbackOrderByWithRelationInput | Prisma.SessionMuscleFeedbackOrderByWithRelationInput[]
+  cursor?: Prisma.SessionMuscleFeedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionMuscleFeedbackScalarFieldEnum | Prisma.SessionMuscleFeedbackScalarFieldEnum[]
 }
 
 /**

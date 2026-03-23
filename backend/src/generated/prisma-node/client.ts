@@ -64,3 +64,38 @@ export type Frequency = Prisma.FrequencyModel
  * 
  */
 export type Muscle = Prisma.MuscleModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Sorenessfeedback
+ * 
+ */
+export type Sorenessfeedback = Prisma.SorenessfeedbackModel
+/**
+ * Model Performancefeedback
+ * 
+ */
+export type Performancefeedback = Prisma.PerformancefeedbackModel
+/**
+ * Model SessionMuscleFeedback
+ * 
+ */
+export type SessionMuscleFeedback = Prisma.SessionMuscleFeedbackModel
+/**
+ * Model Exercise
+ * 
+ */
+export type Exercise = Prisma.ExerciseModel
+/**
+ * Model Exerciselog
+ * 
+ */
+export type Exerciselog = Prisma.ExerciselogModel
+/**
+ * Model Set
+ * 
+ */
+export type Set = Prisma.SetModel
