@@ -12,19 +12,19 @@ export default function Sessionpage(){
     const { weekId, mesoId } = (location.state as { weekId?: string; mesoId?: string }) || {}
     
     
-    if (!weekId || !mesoId) {
+    if (!weekId || !mesoId || !sessionId) {
         navigate(-1)
         return null
     }
     
-    const {Addexercise,MUSCLE_COLORS,  addexercise, Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, submitSession, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData} = useSession({sessionId, weekId, mesoId})
+    const {Addexercise,MUSCLE_COLORS,  addexercise, persistableExercises, Selecttrainedmuscle, exerciseName, addsetData, addSet, deleteSet, deleteExercise, sessionName, submitSession, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData} = useSession({sessionId, weekId, mesoId})
     
     const [currentDropdown, setCurrentDropdown] = useState<number | null>(null);    
     const [isOpen, setOpen]= useState(false)
     const muscle= ["back","chest","legs", "biceps","triceps","forearms","abs","front delts","side delts","rear delts","glutes","calves","traps"]
     const sorenessFeedbackMuscles = Array.from(
         new Set(
-            (addexercise as any[])
+            (persistableExercises as any[])
                 .filter((exercise) => {
                     return (
                         typeof exercise?.muscletrained === "string" &&
@@ -64,7 +64,7 @@ export default function Sessionpage(){
                         {
                             addexercise.length === 0? <p>Start adding exercise</p>:addexercise.map((exercise)=>{
                                 //@ts-ignore
-                                return <Exercisecomponent logSoreness={logSoreness} Addexercise={Addexercise} muscletrained={exercise.muscletrained} addexercise={addexercise} MUSCLE_COLORS={MUSCLE_COLORS} muscle={muscle} currentDropdown={currentDropdown} setCurrentDropdown={setCurrentDropdown} isOpen={isOpen} setOpen={setOpen} exercise_name={exercise.exercise_name} id={exercise.id} exerciseName={exerciseName} addset={addSet} set={exercise.set} addsetData={addsetData} Selecttrainedmuscle={Selecttrainedmuscle} apiCall={apiCall} setApiCall={setApiCall} weekId={weekId} mesoId={mesoId} existingSoreness={exercise.soreness}/>
+                                return <Exercisecomponent key={exercise.id} logSoreness={logSoreness} muscletrained={exercise.muscletrained} MUSCLE_COLORS={MUSCLE_COLORS} muscle={muscle} currentDropdown={currentDropdown} setCurrentDropdown={setCurrentDropdown} isOpen={isOpen} setOpen={setOpen} exercise_name={exercise.exercise_name} id={exercise.id} exerciseName={exerciseName} addset={addSet} deleteSet={deleteSet} deleteExercise={deleteExercise} set={exercise.set} addsetData={addsetData} Selecttrainedmuscle={Selecttrainedmuscle} apiCall={apiCall} setApiCall={setApiCall} weekId={weekId} mesoId={mesoId} existingSoreness={exercise.soreness}/>
                             })
                         }
                         

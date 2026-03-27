@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react"
+import {
+    deleteExerciseFromExercises,
+    deleteSetFromExercises,
+    getPersistableExercises,
+    type SessionExerciseDraft,
+} from "./sessionDraft"
 
 type PerformanceData = {
     score: number
@@ -7,7 +13,7 @@ type PerformanceData = {
 
 export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId:string, mesoId:string}){
     const [sessionName, setSessionName] = useState("")
-    const [addexercise, setAddexercise] = useState([])
+    const [addexercise, setAddexercise] = useState<SessionExerciseDraft[]>([])
     const [apiCall, setApiCall] = useState(new Set());
         const MUSCLE_COLORS = {
         "legs": "#4ade80", "glutes": "#4ade80",
@@ -23,41 +29,43 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
         const data = await res.json()
         setSessionName(data.session_name)
         console.log("session data", data.eachexercise)
-        setAddexercise(data.eachexercise)
-        const result = data.eachexercise.map((exercise, index)=>{
+        const result: SessionExerciseDraft[] = data.eachexercise.map((exercise: any, index: number)=>{
             
             return {
                 ...exercise, 
                 id: index+1, 
-                set: exercise.set.map((set, index)=>
+                set: exercise.set.map((set: any, index: number)=>
                 {
                     return{
                         ...set, id: index+1
                     }
                 }),
                 // Preserve soreness and performance feedback from backend
-                ...(exercise.soreness && { soreness: exercise.soreness }),
-                ...(exercise.performance && { performance: exercise.performance })
+                ...(exercise.soreness && {
+                    soreness: exercise.soreness,
+                    performance: exercise.performance ?? null
+                }),
+                ...(!exercise.soreness && exercise.performance && { performance: exercise.performance })
             }
         })
         setAddexercise(result)
     }
 
     function Addexercise(){
-        //@ts-ignore
-        setAddexercise([...addexercise, {
-            "id":addexercise.length +1, 
-            "exercise_name":"",
-            "muscletrained":"",
-            "set":[]
-             
-        }])
+        setAddexercise((currentExercises) => [
+            ...currentExercises,
+            {
+                id: currentExercises.length + 1,
+                exercise_name: "",
+                muscletrained: "",
+                set: []
+            }
+        ])
     }
 
     async function Selecttrainedmuscle(id?:number, musclename?:string){
         if (!musclename) {
-            const newaddexercise = addexercise.map(exercise => {
-                //@ts-ignore
+            const newaddexercise = addexercise.map((exercise: any) => {
                 if (exercise.id === id) {
                     const { soreness, performance, ...rest } = exercise as any;
                     return { ...rest, muscletrained: "" };
@@ -68,7 +76,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
             return;
         }
 
-        const isMultiple = addexercise.some((ex: any) => ex.id !== id && ex.muscletrained === musclename);
+        const isMultiple = addexercise.some((ex) => ex.id !== id && ex.muscletrained === musclename);
 
         let showFeedback = false;
         if (!isMultiple) {
@@ -82,8 +90,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
             }
         }
 
-        const newaddexercise = addexercise.map(exercise => {
-            //@ts-ignore
+        const newaddexercise = addexercise.map((exercise: any) => {
             if (exercise.id === id) {
                 if (showFeedback) {
                     return { ...exercise, muscletrained: musclename, soreness: null, performance: null };
@@ -98,6 +105,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
     }
 
     async function submitSession(){
+        const persistableExercises = getPersistableExercises(addexercise)
         const url = `http://localhost:8787/api/v1/mesoCycle/session/add/set/${sessionId}`
         const result = await fetch(url,{
             method:"POST",
@@ -105,7 +113,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                sessionData:addexercise
+                sessionData:persistableExercises
             })
         })
 
@@ -138,13 +146,10 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
     function addsetData(e: any, exerciseid: number, id:number) {
         const { name, value } = e.target;
         
-        const result :any = addexercise.map(exercise => //{"id", "exercisename", "sets":[{}, {}, {}]}
-            //@ts-ignore
+        const result = addexercise.map(exercise => //{"id", "exercisename", "sets":[{}, {}, {}]}
             exercise.id === exerciseid //How to do you access the keys of an object ??
             ? {
-                //@ts-ignore
                 ...exercise,   //expand the exercise object 
-                //@ts-ignore
                 set: exercise.set.map(set =>  //How do you go through an array of object ?? here ===> set = {"id", "reps", "weight", "rir"}
                     set.id === id ? { ...set, [name]: value } : set
                 )
@@ -158,13 +163,9 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
     function addSet(exerciseid: number) {
         console.log("exerciseid", exerciseid)
         const exerciseId = Number(exerciseid)
-        //@ts-ignore
         setAddexercise(addexercise.map(exercise => { //{"id", "exercisename", "sets":[{}, {}, {}]}
-        //@ts-ignore
             if (exercise.id === exerciseId) {
-                //@ts-ignore
                 return {
-                    //@ts-ignore
                     ...exercise,
                     // to create a copy we use "..." so if sets = [{}, {}, {}] then copy = ...sets
                     //since we are adding a new objec that means it will start with "{}"
@@ -183,7 +184,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
 
 
     function logSoreness(id: number, sorenessData: any) {
-        setAddexercise((prevExercises: any[]) => prevExercises.map((exercise: any) => {
+        setAddexercise((prevExercises) => prevExercises.map((exercise: any) => {
             if (exercise.id === id) {
                 return { ...exercise, soreness: { soreness_score: sorenessData.level, description: sorenessData.label } };
             }
@@ -192,7 +193,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
     }
 
     function logPerformanceByMuscle(muscleName: string, performanceData: PerformanceData) {
-        setAddexercise((prevExercises: any[]) => prevExercises.map((exercise: any) => {
+        setAddexercise((prevExercises) => prevExercises.map((exercise: any) => {
             if (
                 exercise.muscletrained !== muscleName ||
                 !Object.prototype.hasOwnProperty.call(exercise, "soreness")
@@ -203,14 +204,28 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
             return {
                 ...exercise,
                 performance: {
-                    performance_score: performanceData.score,
-                    description: performanceData.label
+                    score: performanceData.score,
+                    level: performanceData.label
                 }
             };
         }));
     }
 
-    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, addexercise, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData:getSessionname}
+    function deleteSet(exerciseId: number, setId: number) {
+        setAddexercise((currentExercises) =>
+            deleteSetFromExercises(currentExercises, exerciseId, setId)
+        )
+    }
+
+    function deleteExercise(exerciseId: number) {
+        setAddexercise((currentExercises) =>
+            deleteExerciseFromExercises(currentExercises, exerciseId)
+        )
+    }
+
+    const persistableExercises = getPersistableExercises(addexercise)
+
+    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, deleteSet, deleteExercise, sessionName, addexercise, persistableExercises, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData:getSessionname}
     
 
 }

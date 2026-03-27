@@ -5,4 +5,5 @@ export * from "./utils";
 export * from "./exerciseService";
 export * from "./setService";
 export * from "./feedbackService";
+export * from "./performanceRating";
 export * from "./sessionService";

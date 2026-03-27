@@ -1,6 +1,11 @@
+type SessionSet = {
+    id: number
+    reps: string | number
+    weight: string | number
+    rir: string | number
+}
 
-
-export default function SetComponent({ setdata, addsetData, exerciseid}: { exerciseid:number, setdata: Set, addsetData: (e:any, exerciseid:number, id:number)=>void }) {
+export default function SetComponent({ setdata, addsetData, deleteSet, exerciseid}: { exerciseid:number, setdata: SessionSet, addsetData: (e:any, exerciseid:number, id:number)=>void, deleteSet: (exerciseId:number, setId:number)=>void }) {
 
     return (
         <div className="flex gap-6 items-center" >
@@ -47,7 +52,7 @@ export default function SetComponent({ setdata, addsetData, exerciseid}: { exerc
             </div>
 
             <div   className="flex-shrink-0">
-                <button data-setid={setdata.id} className="bg-transparent border-none text-neutral-500 cursor-pointer text-sm font-mono text-right transition-colors duration-150 hover:text-red-400">
+                <button onClick={() => deleteSet(exerciseid, setdata.id)} data-setid={setdata.id} className="bg-transparent border-none text-neutral-500 cursor-pointer text-sm font-mono text-right transition-colors duration-150 hover:text-red-400">
                     Delete
                 </button>
             </div>

@@ -15,6 +15,7 @@ export interface SorenessData {
 export interface PerformanceData {
   performance_score?: number;
   score?: number;
+  level?: string;
   description?: string;
 }
 

@@ -37,9 +37,12 @@ sessionRoute.post("/add/set/:sessionId", async (c) => {
       { maxWait: 10000, timeout: 10000 }
     );
 
-    return c.json({
-      message: "Session is saved successfully",
-    });
+    return c.json(
+      {
+        message: "Session is saved successfully",
+      },
+      200
+    );
   } catch (error) {
     return c.json(
       {
