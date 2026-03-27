@@ -1,34 +1,40 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom"
-import { useState, useEffect } from "react"
-
+import { useState } from "react"
+import Dimmer from "../components/Dimmer"
 import { useSession } from "../hooks/useSession"
 import Exercisecomponent from "./Exercisecomponent"
-
-interface Set {
-    id: number;
-    reps: number;
-    weight: number;
-    rir: number;
-}
 
 export default function Sessionpage(){
     const {sessionId}= useParams()
     const location = useLocation()
     const navigate = useNavigate()
-    
+    const [showDimmer, setShowDimmer] = useState(false)
     const { weekId, mesoId } = (location.state as { weekId?: string; mesoId?: string }) || {}
     
-    // Null guard: redirect if weekId or mesoId is missing
+    
     if (!weekId || !mesoId) {
         navigate(-1)
         return null
     }
     
-    const {Addexercise,MUSCLE_COLORS,  addexercise, Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, submitSession, apiCall, setApiCall, logSoreness} = useSession({sessionId, weekId, mesoId})
+    const {Addexercise,MUSCLE_COLORS,  addexercise, Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, submitSession, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData} = useSession({sessionId, weekId, mesoId})
     
     const [currentDropdown, setCurrentDropdown] = useState<number | null>(null);    
     const [isOpen, setOpen]= useState(false)
     const muscle= ["back","chest","legs", "biceps","triceps","forearms","abs","front delts","side delts","rear delts","glutes","calves","traps"]
+    const sorenessFeedbackMuscles = Array.from(
+        new Set(
+            (addexercise as any[])
+                .filter((exercise) => {
+                    return (
+                        typeof exercise?.muscletrained === "string" &&
+                        exercise.muscletrained.trim() !== "" &&
+                        Object.prototype.hasOwnProperty.call(exercise, "soreness")
+                    )
+                })
+                .map((exercise) => exercise.muscletrained)
+        )
+    )
     
  
     return(
@@ -42,7 +48,14 @@ export default function Sessionpage(){
                         
                         <p className="h-10 w-full text-xl font-spaceMono uppercase">{sessionName}</p>
                         <div className="p-2">
-                            <button className="cursor-pointer"onClick={submitSession}>Save Session</button>
+                            <button
+                                className="cursor-pointer font-mono text-[13px] tracking-[0.06em] text-[#f0f0f0] bg-transparent border border-[#2a2a2a] rounded-[8px] px-5 py-[10px] leading-[1.4] text-center transition-all duration-200 hover:border-[#f97316] hover:text-[#f97316] hover:bg-[rgba(249,115,22,0.15)]"
+                                // onClick={submitSession}
+                                onClick={() => {
+                                    setShowDimmer(true);
+                                }}>
+                                Save<br/>Session
+                            </button>
                         </div>
                         
                     </div>
@@ -64,6 +77,18 @@ export default function Sessionpage(){
                     </div>
                 </div>
             </div>
+            {
+                showDimmer ? <Dimmer
+                    setShowDimmer={setShowDimmer}
+                    musclesForPerformance={sorenessFeedbackMuscles}
+                    onRatePerformance={logPerformanceByMuscle}
+                    onSaveSession={submitSession}
+                    onBackToSession={async () => {
+                        await refreshSessionData()
+                        setShowDimmer(false)
+                    }}
+                /> : null
+            }
         </div>
     )
 }

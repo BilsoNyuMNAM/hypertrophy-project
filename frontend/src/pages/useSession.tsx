@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react"
 
-type PerformanceData = {
-    score: number
-    label: string
-}
-
 export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId:string, mesoId:string}){
     const [sessionName, setSessionName] = useState("")
     const [addexercise, setAddexercise] = useState([])
@@ -110,7 +105,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
         })
 
         if (!result.ok) {
-            throw new Error(`Failed to save session: ${result.status}`)
+            throw new Error(`Failed to onConfirm: ${result.status}`)
         }
 
         return result.json()
@@ -183,7 +178,8 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
 
 
     function logSoreness(id: number, sorenessData: any) {
-        setAddexercise((prevExercises: any[]) => prevExercises.map((exercise: any) => {
+        setAddexercise(addexercise.map(exercise => {
+            //@ts-ignore
             if (exercise.id === id) {
                 return { ...exercise, soreness: { soreness_score: sorenessData.level, description: sorenessData.label } };
             }
@@ -191,26 +187,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
         }));
     }
 
-    function logPerformanceByMuscle(muscleName: string, performanceData: PerformanceData) {
-        setAddexercise((prevExercises: any[]) => prevExercises.map((exercise: any) => {
-            if (
-                exercise.muscletrained !== muscleName ||
-                !Object.prototype.hasOwnProperty.call(exercise, "soreness")
-            ) {
-                return exercise;
-            }
-
-            return {
-                ...exercise,
-                performance: {
-                    performance_score: performanceData.score,
-                    description: performanceData.label
-                }
-            };
-        }));
-    }
-
-    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, addexercise, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData:getSessionname}
+    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, sessionName, addexercise, apiCall, setApiCall, logSoreness, refreshSessionData:getSessionname}
     
 
 }

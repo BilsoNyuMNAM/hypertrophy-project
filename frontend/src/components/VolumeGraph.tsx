@@ -7,6 +7,12 @@ type weekvolume = {
 }
 
 function Progressbar({weekvolume}:{weekvolume: weekvolume | null}){
+    
+    const MUSCLE_COLORS = {
+        "legs": "#4ade80", "glutes": "#4ade80",
+        "calves": "#4ade80", "abductors": "#4ade80", "chest": "#60a5fa",
+        "traps": "#a78bfa", "rear delts": "#a78bfa", "front delts": "#a78bfa","side delts": "#f59e0b", "biceps": "#f59e0b", "triceps": "#f87171","forearms": "#f87171", "abs": "#f87171"
+    };
     return(
         <div className="flex justify-between items-center gap-2 p-3 border-b border-gray-700">
             <div className="w-25 shrink-0 flex items-center gap-2">
@@ -16,8 +22,8 @@ function Progressbar({weekvolume}:{weekvolume: weekvolume | null}){
             </div>
 
             <div className={`h-1 flex-1 bg-white shrink-1  rounded-lg`} style={{width: weekvolume?.starting_volume}}>
-                <div className="h-full  bg-[#c8ff00] rounded-lg" style={{width: (weekvolume?.volume_completed/weekvolume?.starting_volume)*100+"%"}}></div>
-            </div> 
+                <div className="h-full   rounded-lg" style={{width: (weekvolume?.volume_completed/weekvolume?.starting_volume)*100+"%", backgroundColor:[MUSCLE_COLORS[weekvolume?.muscle_name]]}}></div>
+            </div>
 
             <div className="flex items-center gap-1 justify-center w-20 shrink-0">
                 <span className="font-spaceMono text-xs ">{weekvolume?.volume_completed}/{weekvolume?.starting_volume}</span>

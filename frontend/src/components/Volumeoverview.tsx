@@ -84,7 +84,7 @@
 //     )
 // }
 
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import VolumeGraph from "./VolumeGraph"
 
@@ -99,19 +99,42 @@ export default function VolumeOverview({ weekName, id }: { weekName: Week[] | nu
     const [weeknumber, setWeeknumber] = useState(1)
     const [weekvolume, setWeekvolume] = useState(null)
     const [weekid, setWeekid] = useState<string | null>(null)
+    const [hasLoadedInitial, setHasLoadedInitial] = useState(false)
+    const unlockedWeekIndex = 0
 
-    async function getWeekvolume(num: number, wid: string) {
+    const sortedWeeks = useMemo(() => {
+        if (!weekName || weekName.length === 0) return []
+        return [...weekName].sort((a, b) => {
+            const numA = parseInt(a.week_name.replace(/\D/g, '')) || 0
+            const numB = parseInt(b.week_name.replace(/\D/g, '')) || 0
+            return numA - numB
+        })
+    }, [weekName])
+
+    async function getWeekvolume(wid: string) {
         const result = await fetch(`http://localhost:8787/api/v1/mesoCycle/volume/${wid}`)
         const jsonified = await result.json()
         console.log("volume data received:", jsonified)
         setWeekvolume(jsonified.volume)
     }
 
+    useEffect(() => {
+        if (sortedWeeks.length > 0 && !hasLoadedInitial) {
+            const firstWeek = sortedWeeks[0]
+            setWeekid(firstWeek.id)
+            setHasLoadedInitial(true)
+            getWeekvolume(firstWeek.id)
+        }
+    }, [sortedWeeks, hasLoadedInitial])
+
     function handleWeekSelect(week: Week, index: number) {
+
+        if (index > unlockedWeekIndex) return
+        
         const weekNum = index + 1
         setWeeknumber(weekNum)
         setWeekid(week.id)
-        getWeekvolume(weekNum, week.id)
+        getWeekvolume(week.id)
     }
 
     return (
@@ -123,8 +146,9 @@ export default function VolumeOverview({ weekName, id }: { weekName: Week[] | nu
                     "No weeks found"
                 ) : (
                     <div className="flex gap-3">
-                        {weekName.map((week, index) => {
+                        {sortedWeeks.map((week, index) => {
                             const isActive = weeknumber === index + 1
+                            const isLocked = index > unlockedWeekIndex
 
                             return (
                                 <div
@@ -132,23 +156,57 @@ export default function VolumeOverview({ weekName, id }: { weekName: Week[] | nu
                                     data-weekId={week.id}
                                     onClick={() => handleWeekSelect(week, index)}
                                     className={`
-                                        relative overflow-hidden rounded-lg cursor-pointer
+                                        group relative overflow-hidden rounded-lg
                                         border transition-all duration-200
                                         font-spaceMono text-xs tracking-wider px-7 py-3.5
-                                        ${isActive
-                                            ? 'border-[#c8ff00] text-white bg-[rgba(200,255,0,0.08)]'
-                                            : 'border-neutral-800 text-neutral-500 hover:text-neutral-200 hover:border-neutral-500'
+                                        ${isLocked
+                                            ? 'border-neutral-800/50 text-neutral-600 cursor-not-allowed opacity-60'
+                                            : isActive
+                                                ? 'border-[#c8ff00] text-white bg-[rgba(200,255,0,0.08)] cursor-pointer'
+                                                : 'border-neutral-800 text-neutral-500 hover:text-neutral-200 hover:border-neutral-500 cursor-pointer'
                                         }
                                     `}
                                 >
+                                    
+                                    {isLocked && (
+                                        <div className="
+                                            absolute -top-10 left-1/2 -translate-x-1/2
+                                            px-3 py-1.5 rounded-md
+                                            bg-neutral-800 border border-neutral-700
+                                            text-neutral-400 text-[10px] tracking-wide
+                                            opacity-0 group-hover:opacity-100
+                                            transition-opacity duration-200
+                                            pointer-events-none whitespace-nowrap
+                                            z-10
+                                        ">
+                                            Complete previous week to unlock
+                                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-800 border-r border-b border-neutral-700 rotate-45" />
+                                        </div>
+                                    )}
+                                    
                                     <span
                                         className={`
                                             absolute bottom-0 left-0 h-[2px] bg-[#c8ff00]
                                             transition-all duration-200
-                                            ${isActive ? 'w-full' : 'w-0'}
+                                            ${isActive && !isLocked ? 'w-full' : 'w-0'}
                                         `}
                                     />
-                                    {week.week_name}
+                                    
+                                    <span className="flex items-center gap-2">
+                                        {week.week_name}
+                                        {isLocked && (
+                                            <svg 
+                                                width="12" 
+                                                height="12" 
+                                                viewBox="0 0 24 24" 
+                                                fill="none" 
+                                                className="text-neutral-600"
+                                            >
+                                                <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="2"/>
+                                                <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                                            </svg>
+                                        )}
+                                    </span>
                                 </div>
                             )
                         })}

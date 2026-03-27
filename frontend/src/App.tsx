@@ -1,6 +1,6 @@
 
 import CreateMesocycle from './pages/Createmesocycle'
-
+import Performance from './pages/Performance'
 import Mesocycleui from './pages/Mesocycleui'
 import { Routes, Route, BrowserRouter} from 'react-router-dom'
 import Allmesocycle from './pages/Allmesocycle'
@@ -19,6 +19,7 @@ function App() {
         <Route path="/mesocycle/week/:weekId" element={<Weekpage/>}/>
         <Route path="/mesocycle/display/:id" element = {<Mesocycleui/>}/>
         <Route path="/mesocycle/week/session/:sessionId" element={<Sessionpage/>}/>
+        <Route path="/performance" element={<Performance/>}/>
       </Routes>
     </BrowserRouter>
       

@@ -8,3 +8,37 @@
   --font-spaceMono:"Space Mono", monospace;
   --font-barlow:"Barlow Condensed", sans-serif;
 }
+
+@keyframes performance-check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes performance-summary-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.performance-check-badge {
+  animation: performance-check-pop 420ms cubic-bezier(0.22, 1.2, 0.32, 1);
+}
+
+.performance-rating-summary {
+  animation: performance-summary-slide 220ms ease-out;
+}
