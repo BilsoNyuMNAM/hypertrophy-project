@@ -3,6 +3,7 @@ import {
   filterPersistableExercises,
   reconcileRemovedSessionData,
   saveSessionExercises,
+  softDeleteSession,
 } from "../src/service/sessionService";
 
 describe("filterPersistableExercises", () => {
@@ -141,5 +142,95 @@ describe("saveSessionExercises", () => {
         muscleId: { notIn: [4] },
       },
     });
+  });
+});
+
+describe("softDeleteSession", () => {
+  it("soft deletes the session and all related rows in one transaction", async () => {
+    const tx = {
+      exerciselog: {
+        findMany: vi.fn().mockResolvedValue([{ id: 41 }, { id: 42 }]),
+        updateMany: vi.fn().mockResolvedValue({ count: 2 }),
+      },
+      set: {
+        updateMany: vi.fn().mockResolvedValue({ count: 6 }),
+      },
+      sessionMuscleFeedback: {
+        updateMany: vi.fn().mockResolvedValue({ count: 3 }),
+      },
+      session: {
+        updateMany: vi.fn().mockResolvedValue({ count: 1 }),
+      },
+    };
+
+    const prisma = {
+      session: {
+        findFirst: vi.fn().mockResolvedValue({ id: 9, weekId: 2 }),
+      },
+      $transaction: vi.fn().mockImplementation(async (callback) => callback(tx)),
+    };
+
+    const result = await softDeleteSession(prisma, 9);
+
+    expect(prisma.session.findFirst).toHaveBeenCalledWith({
+      where: { id: 9, deletedAt: null },
+      select: { id: true, weekId: true },
+    });
+    expect(tx.exerciselog.findMany).toHaveBeenCalledWith({
+      where: {
+        sessionId: 9,
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    expect(tx.set.updateMany).toHaveBeenCalledWith({
+      where: {
+        exerciselogId: { in: [41, 42] },
+        deletedAt: null,
+      },
+      data: { deletedAt: expect.any(Date) },
+    });
+    expect(tx.sessionMuscleFeedback.updateMany).toHaveBeenCalledWith({
+      where: {
+        sessionId: 9,
+        deletedAt: null,
+      },
+      data: { deletedAt: expect.any(Date) },
+    });
+    expect(tx.exerciselog.updateMany).toHaveBeenCalledWith({
+      where: {
+        sessionId: 9,
+        deletedAt: null,
+      },
+      data: { deletedAt: expect.any(Date) },
+    });
+    expect(tx.session.updateMany).toHaveBeenCalledWith({
+      where: {
+        id: 9,
+        deletedAt: null,
+      },
+      data: { deletedAt: expect.any(Date) },
+    });
+    expect(result).toMatchObject({
+      sessionId: 9,
+      weekId: 2,
+      exerciseLogCount: 2,
+      setCount: 6,
+      feedbackCount: 3,
+    });
+  });
+
+  it("throws when the session does not exist or is already deleted", async () => {
+    const prisma = {
+      session: {
+        findFirst: vi.fn().mockResolvedValue(null),
+      },
+      $transaction: vi.fn(),
+    };
+
+    await expect(softDeleteSession(prisma, 99)).rejects.toThrow(
+      "SESSION_NOT_FOUND"
+    );
+    expect(prisma.$transaction).not.toHaveBeenCalled();
   });
 });

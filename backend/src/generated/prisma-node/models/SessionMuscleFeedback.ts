@@ -44,6 +44,7 @@ export type SessionMuscleFeedbackSumAggregateOutputType = {
 
 export type SessionMuscleFeedbackMinAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   sessionId: number | null
   muscleId: number | null
   sorenessfeedbackId: number | null
@@ -52,6 +53,7 @@ export type SessionMuscleFeedbackMinAggregateOutputType = {
 
 export type SessionMuscleFeedbackMaxAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   sessionId: number | null
   muscleId: number | null
   sorenessfeedbackId: number | null
@@ -60,6 +62,7 @@ export type SessionMuscleFeedbackMaxAggregateOutputType = {
 
 export type SessionMuscleFeedbackCountAggregateOutputType = {
   id: number
+  deletedAt: number
   sessionId: number
   muscleId: number
   sorenessfeedbackId: number
@@ -86,6 +89,7 @@ export type SessionMuscleFeedbackSumAggregateInputType = {
 
 export type SessionMuscleFeedbackMinAggregateInputType = {
   id?: true
+  deletedAt?: true
   sessionId?: true
   muscleId?: true
   sorenessfeedbackId?: true
@@ -94,6 +98,7 @@ export type SessionMuscleFeedbackMinAggregateInputType = {
 
 export type SessionMuscleFeedbackMaxAggregateInputType = {
   id?: true
+  deletedAt?: true
   sessionId?: true
   muscleId?: true
   sorenessfeedbackId?: true
@@ -102,6 +107,7 @@ export type SessionMuscleFeedbackMaxAggregateInputType = {
 
 export type SessionMuscleFeedbackCountAggregateInputType = {
   id?: true
+  deletedAt?: true
   sessionId?: true
   muscleId?: true
   sorenessfeedbackId?: true
@@ -197,6 +203,7 @@ export type SessionMuscleFeedbackGroupByArgs<ExtArgs extends runtime.Types.Exten
 
 export type SessionMuscleFeedbackGroupByOutputType = {
   id: number
+  deletedAt: Date | null
   sessionId: number
   muscleId: number
   sorenessfeedbackId: number | null
@@ -228,6 +235,7 @@ export type SessionMuscleFeedbackWhereInput = {
   OR?: Prisma.SessionMuscleFeedbackWhereInput[]
   NOT?: Prisma.SessionMuscleFeedbackWhereInput | Prisma.SessionMuscleFeedbackWhereInput[]
   id?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"SessionMuscleFeedback"> | Date | string | null
   sessionId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   muscleId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   sorenessfeedbackId?: Prisma.IntNullableFilter<"SessionMuscleFeedback"> | number | null
@@ -240,6 +248,7 @@ export type SessionMuscleFeedbackWhereInput = {
 
 export type SessionMuscleFeedbackOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   sorenessfeedbackId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -256,6 +265,7 @@ export type SessionMuscleFeedbackWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SessionMuscleFeedbackWhereInput | Prisma.SessionMuscleFeedbackWhereInput[]
   OR?: Prisma.SessionMuscleFeedbackWhereInput[]
   NOT?: Prisma.SessionMuscleFeedbackWhereInput | Prisma.SessionMuscleFeedbackWhereInput[]
+  deletedAt?: Prisma.DateTimeNullableFilter<"SessionMuscleFeedback"> | Date | string | null
   sessionId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   muscleId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   sorenessfeedbackId?: Prisma.IntNullableFilter<"SessionMuscleFeedback"> | number | null
@@ -268,6 +278,7 @@ export type SessionMuscleFeedbackWhereUniqueInput = Prisma.AtLeast<{
 
 export type SessionMuscleFeedbackOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   sorenessfeedbackId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -284,6 +295,7 @@ export type SessionMuscleFeedbackScalarWhereWithAggregatesInput = {
   OR?: Prisma.SessionMuscleFeedbackScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SessionMuscleFeedbackScalarWhereWithAggregatesInput | Prisma.SessionMuscleFeedbackScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SessionMuscleFeedback"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SessionMuscleFeedback"> | Date | string | null
   sessionId?: Prisma.IntWithAggregatesFilter<"SessionMuscleFeedback"> | number
   muscleId?: Prisma.IntWithAggregatesFilter<"SessionMuscleFeedback"> | number
   sorenessfeedbackId?: Prisma.IntNullableWithAggregatesFilter<"SessionMuscleFeedback"> | number | null
@@ -291,6 +303,7 @@ export type SessionMuscleFeedbackScalarWhereWithAggregatesInput = {
 }
 
 export type SessionMuscleFeedbackCreateInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutSessionmusclefeedbackInput
   muscle: Prisma.MuscleCreateNestedOneWithoutSessionmusclefeedbackInput
   sorenessfeedback?: Prisma.SorenessfeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
@@ -299,6 +312,7 @@ export type SessionMuscleFeedbackCreateInput = {
 
 export type SessionMuscleFeedbackUncheckedCreateInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   sorenessfeedbackId?: number | null
@@ -306,6 +320,7 @@ export type SessionMuscleFeedbackUncheckedCreateInput = {
 }
 
 export type SessionMuscleFeedbackUpdateInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   sorenessfeedback?: Prisma.SorenessfeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
@@ -314,6 +329,7 @@ export type SessionMuscleFeedbackUpdateInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -322,6 +338,7 @@ export type SessionMuscleFeedbackUncheckedUpdateInput = {
 
 export type SessionMuscleFeedbackCreateManyInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   sorenessfeedbackId?: number | null
@@ -329,11 +346,12 @@ export type SessionMuscleFeedbackCreateManyInput = {
 }
 
 export type SessionMuscleFeedbackUpdateManyMutationInput = {
-
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SessionMuscleFeedbackUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -357,6 +375,7 @@ export type SessionMuscleFeedbackSessionIdMuscleIdCompoundUniqueInput = {
 
 export type SessionMuscleFeedbackCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   sorenessfeedbackId?: Prisma.SortOrder
@@ -373,6 +392,7 @@ export type SessionMuscleFeedbackAvgOrderByAggregateInput = {
 
 export type SessionMuscleFeedbackMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   sorenessfeedbackId?: Prisma.SortOrder
@@ -381,6 +401,7 @@ export type SessionMuscleFeedbackMaxOrderByAggregateInput = {
 
 export type SessionMuscleFeedbackMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   sorenessfeedbackId?: Prisma.SortOrder
@@ -572,6 +593,7 @@ export type NullableIntFieldUpdateOperationsInput = {
 }
 
 export type SessionMuscleFeedbackCreateWithoutMuscleInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutSessionmusclefeedbackInput
   sorenessfeedback?: Prisma.SorenessfeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
   performancefeedback?: Prisma.PerformancefeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
@@ -579,6 +601,7 @@ export type SessionMuscleFeedbackCreateWithoutMuscleInput = {
 
 export type SessionMuscleFeedbackUncheckedCreateWithoutMuscleInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   sorenessfeedbackId?: number | null
   performancefeedbackId?: number | null
@@ -615,6 +638,7 @@ export type SessionMuscleFeedbackScalarWhereInput = {
   OR?: Prisma.SessionMuscleFeedbackScalarWhereInput[]
   NOT?: Prisma.SessionMuscleFeedbackScalarWhereInput | Prisma.SessionMuscleFeedbackScalarWhereInput[]
   id?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"SessionMuscleFeedback"> | Date | string | null
   sessionId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   muscleId?: Prisma.IntFilter<"SessionMuscleFeedback"> | number
   sorenessfeedbackId?: Prisma.IntNullableFilter<"SessionMuscleFeedback"> | number | null
@@ -622,6 +646,7 @@ export type SessionMuscleFeedbackScalarWhereInput = {
 }
 
 export type SessionMuscleFeedbackCreateWithoutSessionInput = {
+  deletedAt?: Date | string | null
   muscle: Prisma.MuscleCreateNestedOneWithoutSessionmusclefeedbackInput
   sorenessfeedback?: Prisma.SorenessfeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
   performancefeedback?: Prisma.PerformancefeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
@@ -629,6 +654,7 @@ export type SessionMuscleFeedbackCreateWithoutSessionInput = {
 
 export type SessionMuscleFeedbackUncheckedCreateWithoutSessionInput = {
   id?: number
+  deletedAt?: Date | string | null
   muscleId: number
   sorenessfeedbackId?: number | null
   performancefeedbackId?: number | null
@@ -661,6 +687,7 @@ export type SessionMuscleFeedbackUpdateManyWithWhereWithoutSessionInput = {
 }
 
 export type SessionMuscleFeedbackCreateWithoutSorenessfeedbackInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutSessionmusclefeedbackInput
   muscle: Prisma.MuscleCreateNestedOneWithoutSessionmusclefeedbackInput
   performancefeedback?: Prisma.PerformancefeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
@@ -668,6 +695,7 @@ export type SessionMuscleFeedbackCreateWithoutSorenessfeedbackInput = {
 
 export type SessionMuscleFeedbackUncheckedCreateWithoutSorenessfeedbackInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   performancefeedbackId?: number | null
@@ -700,6 +728,7 @@ export type SessionMuscleFeedbackUpdateManyWithWhereWithoutSorenessfeedbackInput
 }
 
 export type SessionMuscleFeedbackCreateWithoutPerformancefeedbackInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutSessionmusclefeedbackInput
   muscle: Prisma.MuscleCreateNestedOneWithoutSessionmusclefeedbackInput
   sorenessfeedback?: Prisma.SorenessfeedbackCreateNestedOneWithoutSessionmusclefeedbackInput
@@ -707,6 +736,7 @@ export type SessionMuscleFeedbackCreateWithoutPerformancefeedbackInput = {
 
 export type SessionMuscleFeedbackUncheckedCreateWithoutPerformancefeedbackInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   sorenessfeedbackId?: number | null
@@ -740,12 +770,14 @@ export type SessionMuscleFeedbackUpdateManyWithWhereWithoutPerformancefeedbackIn
 
 export type SessionMuscleFeedbackCreateManyMuscleInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   sorenessfeedbackId?: number | null
   performancefeedbackId?: number | null
 }
 
 export type SessionMuscleFeedbackUpdateWithoutMuscleInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   sorenessfeedback?: Prisma.SorenessfeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
   performancefeedback?: Prisma.PerformancefeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
@@ -753,6 +785,7 @@ export type SessionMuscleFeedbackUpdateWithoutMuscleInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -760,6 +793,7 @@ export type SessionMuscleFeedbackUncheckedUpdateWithoutMuscleInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -767,12 +801,14 @@ export type SessionMuscleFeedbackUncheckedUpdateManyWithoutMuscleInput = {
 
 export type SessionMuscleFeedbackCreateManySessionInput = {
   id?: number
+  deletedAt?: Date | string | null
   muscleId: number
   sorenessfeedbackId?: number | null
   performancefeedbackId?: number | null
 }
 
 export type SessionMuscleFeedbackUpdateWithoutSessionInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   sorenessfeedback?: Prisma.SorenessfeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
   performancefeedback?: Prisma.PerformancefeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
@@ -780,6 +816,7 @@ export type SessionMuscleFeedbackUpdateWithoutSessionInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateWithoutSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -787,6 +824,7 @@ export type SessionMuscleFeedbackUncheckedUpdateWithoutSessionInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateManyWithoutSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -794,12 +832,14 @@ export type SessionMuscleFeedbackUncheckedUpdateManyWithoutSessionInput = {
 
 export type SessionMuscleFeedbackCreateManySorenessfeedbackInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   performancefeedbackId?: number | null
 }
 
 export type SessionMuscleFeedbackUpdateWithoutSorenessfeedbackInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   performancefeedback?: Prisma.PerformancefeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
@@ -807,6 +847,7 @@ export type SessionMuscleFeedbackUpdateWithoutSorenessfeedbackInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateWithoutSorenessfeedbackInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -814,6 +855,7 @@ export type SessionMuscleFeedbackUncheckedUpdateWithoutSorenessfeedbackInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateManyWithoutSorenessfeedbackInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   performancefeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -821,12 +863,14 @@ export type SessionMuscleFeedbackUncheckedUpdateManyWithoutSorenessfeedbackInput
 
 export type SessionMuscleFeedbackCreateManyPerformancefeedbackInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   muscleId: number
   sorenessfeedbackId?: number | null
 }
 
 export type SessionMuscleFeedbackUpdateWithoutPerformancefeedbackInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutSessionmusclefeedbackNestedInput
   sorenessfeedback?: Prisma.SorenessfeedbackUpdateOneWithoutSessionmusclefeedbackNestedInput
@@ -834,6 +878,7 @@ export type SessionMuscleFeedbackUpdateWithoutPerformancefeedbackInput = {
 
 export type SessionMuscleFeedbackUncheckedUpdateWithoutPerformancefeedbackInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -841,6 +886,7 @@ export type SessionMuscleFeedbackUncheckedUpdateWithoutPerformancefeedbackInput 
 
 export type SessionMuscleFeedbackUncheckedUpdateManyWithoutPerformancefeedbackInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   sorenessfeedbackId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -850,6 +896,7 @@ export type SessionMuscleFeedbackUncheckedUpdateManyWithoutPerformancefeedbackIn
 
 export type SessionMuscleFeedbackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   sessionId?: boolean
   muscleId?: boolean
   sorenessfeedbackId?: boolean
@@ -862,6 +909,7 @@ export type SessionMuscleFeedbackSelect<ExtArgs extends runtime.Types.Extensions
 
 export type SessionMuscleFeedbackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   sessionId?: boolean
   muscleId?: boolean
   sorenessfeedbackId?: boolean
@@ -874,6 +922,7 @@ export type SessionMuscleFeedbackSelectCreateManyAndReturn<ExtArgs extends runti
 
 export type SessionMuscleFeedbackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   sessionId?: boolean
   muscleId?: boolean
   sorenessfeedbackId?: boolean
@@ -886,13 +935,14 @@ export type SessionMuscleFeedbackSelectUpdateManyAndReturn<ExtArgs extends runti
 
 export type SessionMuscleFeedbackSelectScalar = {
   id?: boolean
+  deletedAt?: boolean
   sessionId?: boolean
   muscleId?: boolean
   sorenessfeedbackId?: boolean
   performancefeedbackId?: boolean
 }
 
-export type SessionMuscleFeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sessionId" | "muscleId" | "sorenessfeedbackId" | "performancefeedbackId", ExtArgs["result"]["sessionMuscleFeedback"]>
+export type SessionMuscleFeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "deletedAt" | "sessionId" | "muscleId" | "sorenessfeedbackId" | "performancefeedbackId", ExtArgs["result"]["sessionMuscleFeedback"]>
 export type SessionMuscleFeedbackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -922,6 +972,7 @@ export type $SessionMuscleFeedbackPayload<ExtArgs extends runtime.Types.Extensio
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    deletedAt: Date | null
     sessionId: number
     muscleId: number
     sorenessfeedbackId: number | null
@@ -1354,6 +1405,7 @@ export interface Prisma__SessionMuscleFeedbackClient<T, Null = never, ExtArgs ex
  */
 export interface SessionMuscleFeedbackFieldRefs {
   readonly id: Prisma.FieldRef<"SessionMuscleFeedback", 'Int'>
+  readonly deletedAt: Prisma.FieldRef<"SessionMuscleFeedback", 'DateTime'>
   readonly sessionId: Prisma.FieldRef<"SessionMuscleFeedback", 'Int'>
   readonly muscleId: Prisma.FieldRef<"SessionMuscleFeedback", 'Int'>
   readonly sorenessfeedbackId: Prisma.FieldRef<"SessionMuscleFeedback", 'Int'>

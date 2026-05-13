@@ -1,5 +1,5 @@
 import Volumecard from "../components/Volumecard"
-import { use, useState } from "react"
+import { useState } from "react"
 import Frequencycard from "../components/Frequencycard"
 import { useNavigate } from "react-router-dom";
 function Volume({ volume, setVolume }: { volume: any, setVolume: any }) {

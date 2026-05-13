@@ -7,3 +7,5 @@ export * from "./setService";
 export * from "./feedbackService";
 export * from "./performanceRating";
 export * from "./sessionService";
+export * from "./weekProgressionService";
+export * from "./mesocycleService";

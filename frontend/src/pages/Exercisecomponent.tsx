@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from "react"
+
 import SetComponent from "../components/Setcomponent"
 import Feedback from "../components/Feeback"
-export default function Exercisecomponent({muscletrained, Selecttrainedmuscle, MUSCLE_COLORS, muscle, currentDropdown, setCurrentDropdown, isOpen,setOpen, exercise_name, exerciseName, addset, deleteSet, deleteExercise, set, id, addsetData, apiCall, setApiCall, weekId, mesoId, logSoreness, existingSoreness}:{muscletrained:string , Selecttrainedmuscle:any, MUSCLE_COLORS:any , muscle:string[], currentDropdown:number | null ,setCurrentDropdown: React.Dispatch<React.SetStateAction<number | null>>, isOpen:boolean ,setOpen: React.Dispatch<React.SetStateAction<boolean>>,  exercise_name:string, exerciseName:(e:any, id:number)=>void, addset:(exerciseid:number)=>void, deleteSet:(exerciseId:number, setId:number)=>void, deleteExercise:(exerciseId:number)=>void, set:any, id:number, addsetData:(e:any, exerciseid:number, id:number)=>void, apiCall:Set<unknown>, setApiCall:React.Dispatch<React.SetStateAction<Set<unknown>>>, weekId:string, mesoId:string, logSoreness:any, existingSoreness?:any}){
+export default function Exercisecomponent({muscletrained, Selecttrainedmuscle, MUSCLE_COLORS, muscle, currentDropdown, setCurrentDropdown, isOpen,setOpen, exercise_name, exerciseName, addset, deleteSet, deleteExercise, set, id, addsetData, apiCall, setApiCall, weekId, mesoId, logSoreness, existingSoreness, setsLeft}:{setsLeft:number | null, muscletrained:string , Selecttrainedmuscle:any, MUSCLE_COLORS:any , muscle:string[], currentDropdown:number | null ,setCurrentDropdown: React.Dispatch<React.SetStateAction<number | null>>, isOpen:boolean ,setOpen: React.Dispatch<React.SetStateAction<boolean>>,  exercise_name:string, exerciseName:(e:any, id:number)=>void, addset:(exerciseid:number)=>void, deleteSet:(exerciseId:number, setId:number)=>void, deleteExercise:(exerciseId:number)=>void, set:any, id:number, addsetData:(e:any, exerciseid:number, id:number)=>void, apiCall:Set<unknown>, setApiCall:React.Dispatch<React.SetStateAction<Set<unknown>>>, weekId:string, mesoId:string, logSoreness:any, existingSoreness?:any}){
     const [selected, setSelected] = useState(muscletrained)
     const [showSorenessFeedback, setSorenessFeedback] = useState(false);
     const [sorenessLog, setSorenessLog] = useState<any>(null);
@@ -87,7 +88,11 @@ export default function Exercisecomponent({muscletrained, Selecttrainedmuscle, M
                                 : set.map((s:any)=>{return <SetComponent key={s.id} exerciseid={id} setdata={s} addsetData={addsetData} deleteSet={deleteSet}/>})}
                             </div>
                             <div className="flex justify-center mt-3">
-                                <button  className="cursor-pointer text-xs font-spaceMono" onClick={()=>{addset(id)}}>+ ADD SET </button>
+                                <button  
+                                    className={`text-xs font-spaceMono ${setsLeft === 0 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} 
+                                    onClick={()=>{addset(id)}}
+                                    disabled={setsLeft === 0}
+                                >+ ADD SET </button>
                             </div>
                         </div>
                     </div>  

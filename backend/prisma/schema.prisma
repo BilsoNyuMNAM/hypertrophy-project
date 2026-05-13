@@ -9,11 +9,11 @@ generator client {
   runtime = "cloudflare"
   output   = "../src/generated/prisma"
 }
- generator clientNode {
-     provider = "prisma-client"
-     runtime   = "nodejs"
-     output    = "../src/generated/prisma-node"
-   }
+//  generator clientNode {
+//      provider = "prisma-client"
+//      runtime   = "nodejs"
+//      output    = "../src/generated/prisma-node"
+//    }
    
 datasource db {
   provider = "postgresql"
@@ -23,6 +23,7 @@ datasource db {
 model Mesocycle{
   id Int @id @default(autoincrement())
   name String @unique
+  deletedAt DateTime?
   frequency Frequency[]
   week Week[] 
 
@@ -34,6 +35,7 @@ model Week{
   week_name String
   mesocycleId Int
   completed Boolean? @default(false)
+  deletedAt DateTime?
   mesocycle Mesocycle @relation(fields:[mesocycleId] , references:[id])
   startingvolume StartingVolume[]
   session Session[]
@@ -42,6 +44,7 @@ model Week{
 model StartingVolume{
   id Int @id @default(autoincrement())
   set Int 
+  deletedAt DateTime?
   //2 foreign key will be here 
   //1st foreign key 
   muscleId Int
@@ -55,6 +58,7 @@ model StartingVolume{
 model Frequency{
   id Int @id @default(autoincrement())
   timesPerWeek Int 
+  deletedAt DateTime?
   muscleId Int
   muscle Muscle @relation(fields: [muscleId], references: [id])
   mesocycleId Int
@@ -75,6 +79,7 @@ model Muscle{
 model Session{
   id Int @id @default(autoincrement())
   session_name String
+  deletedAt DateTime?
   weekId Int
   week Week @relation(fields:[weekId], references:[id])
   exerciselogs Exerciselog[] 
@@ -100,6 +105,7 @@ model Performancefeedback{
 // Junction table - links session + muscle to their selected feedback
 model SessionMuscleFeedback{
   id Int @id @default(autoincrement())
+  deletedAt DateTime?
   sessionId Int
   session Session @relation(fields:[sessionId], references:[id])
   muscleId Int
@@ -123,6 +129,7 @@ model Exercise{
 
 model Exerciselog{
   id Int @id @default(autoincrement())
+  deletedAt DateTime?
   exerciseId Int
   sessionId Int
   session Session @relation(fields:[sessionId], references: [id])
@@ -133,6 +140,7 @@ model Exerciselog{
 
 model Set{
   id Int @id @default(autoincrement())
+  deletedAt DateTime?
   reps Int
   weight Float 
   rir Int

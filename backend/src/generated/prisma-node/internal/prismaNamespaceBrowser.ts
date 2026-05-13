@@ -83,7 +83,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const MesocycleScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  deletedAt: 'deletedAt'
 } as const
 
 export type MesocycleScalarFieldEnum = (typeof MesocycleScalarFieldEnum)[keyof typeof MesocycleScalarFieldEnum]
@@ -93,7 +94,8 @@ export const WeekScalarFieldEnum = {
   id: 'id',
   week_name: 'week_name',
   mesocycleId: 'mesocycleId',
-  completed: 'completed'
+  completed: 'completed',
+  deletedAt: 'deletedAt'
 } as const
 
 export type WeekScalarFieldEnum = (typeof WeekScalarFieldEnum)[keyof typeof WeekScalarFieldEnum]
@@ -102,6 +104,7 @@ export type WeekScalarFieldEnum = (typeof WeekScalarFieldEnum)[keyof typeof Week
 export const StartingVolumeScalarFieldEnum = {
   id: 'id',
   set: 'set',
+  deletedAt: 'deletedAt',
   muscleId: 'muscleId',
   weekId: 'weekId'
 } as const
@@ -112,6 +115,7 @@ export type StartingVolumeScalarFieldEnum = (typeof StartingVolumeScalarFieldEnu
 export const FrequencyScalarFieldEnum = {
   id: 'id',
   timesPerWeek: 'timesPerWeek',
+  deletedAt: 'deletedAt',
   muscleId: 'muscleId',
   mesocycleId: 'mesocycleId'
 } as const
@@ -130,6 +134,7 @@ export type MuscleScalarFieldEnum = (typeof MuscleScalarFieldEnum)[keyof typeof 
 export const SessionScalarFieldEnum = {
   id: 'id',
   session_name: 'session_name',
+  deletedAt: 'deletedAt',
   weekId: 'weekId'
 } as const
 
@@ -156,6 +161,7 @@ export type PerformancefeedbackScalarFieldEnum = (typeof PerformancefeedbackScal
 
 export const SessionMuscleFeedbackScalarFieldEnum = {
   id: 'id',
+  deletedAt: 'deletedAt',
   sessionId: 'sessionId',
   muscleId: 'muscleId',
   sorenessfeedbackId: 'sorenessfeedbackId',
@@ -176,6 +182,7 @@ export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typ
 
 export const ExerciselogScalarFieldEnum = {
   id: 'id',
+  deletedAt: 'deletedAt',
   exerciseId: 'exerciseId',
   sessionId: 'sessionId'
 } as const
@@ -185,6 +192,7 @@ export type ExerciselogScalarFieldEnum = (typeof ExerciselogScalarFieldEnum)[key
 
 export const SetScalarFieldEnum = {
   id: 'id',
+  deletedAt: 'deletedAt',
   reps: 'reps',
   weight: 'weight',
   rir: 'rir',

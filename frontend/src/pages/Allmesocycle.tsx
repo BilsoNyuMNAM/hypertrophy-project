@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Addmesobutton from "../components/Addmeso";
 import Mesocycle from "../components/Mesocycle";
+
+type MesocycleRow = {
+    id: number
+    name: string
+    completed: number
+    total_session: number
+    _count: {
+        week: number
+    }
+}
+
 function Allmesocycle(){
-    const [mesocycle, setMesocycle] = useState([]);
+    const [mesocycle, setMesocycle] = useState<MesocycleRow[]>([]);
+    const [deletingId, setDeletingId] = useState<number | null>(null)
     async function fetchMesocycle(){
+        console.log("fetching function has been trigerred")
         const reponse = await  fetch("http://localhost:8787/api/v1/mesoCycle/all") // promise is returned
         const data = await reponse.json();
         return data;
@@ -17,6 +29,28 @@ function Allmesocycle(){
         }
         mesoCycleData();
     },[])
+
+    async function handleDeleteMesocycle(mesocycleId: number) {
+        if (deletingId !== null) return
+        setDeletingId(mesocycleId)
+
+        try {
+            const response = await fetch(`http://localhost:8787/api/v1/mesoCycle/${mesocycleId}`, {
+                method: "DELETE",
+            })
+
+            if (!response.ok) {
+                console.error("Failed to delete mesocycle")
+                return
+            }
+
+            setMesocycle((prev) => prev.filter((item) => item.id !== mesocycleId))
+        } catch (error) {
+            console.error("Failed to delete mesocycle", error)
+        } finally {
+            setDeletingId(null)
+        }
+    }
     // return(
     //     <div className="px-4 py-6 w-full h-screen bg-black text-white">
     //         <div className="w-full min-h-screen  max-w-5xl mx-auto"> 
@@ -66,7 +100,11 @@ function Allmesocycle(){
             </div>
 
             <div className="flex flex-col">
-                <Mesocycle mesocycle={mesocycle} />
+                <Mesocycle
+                    mesocycle={mesocycle}
+                    onDelete={handleDeleteMesocycle}
+                    deletingId={deletingId}
+                />
             </div>
 
         </div>

@@ -43,6 +43,7 @@ export type FrequencySumAggregateOutputType = {
 export type FrequencyMinAggregateOutputType = {
   id: number | null
   timesPerWeek: number | null
+  deletedAt: Date | null
   muscleId: number | null
   mesocycleId: number | null
 }
@@ -50,6 +51,7 @@ export type FrequencyMinAggregateOutputType = {
 export type FrequencyMaxAggregateOutputType = {
   id: number | null
   timesPerWeek: number | null
+  deletedAt: Date | null
   muscleId: number | null
   mesocycleId: number | null
 }
@@ -57,6 +59,7 @@ export type FrequencyMaxAggregateOutputType = {
 export type FrequencyCountAggregateOutputType = {
   id: number
   timesPerWeek: number
+  deletedAt: number
   muscleId: number
   mesocycleId: number
   _all: number
@@ -80,6 +83,7 @@ export type FrequencySumAggregateInputType = {
 export type FrequencyMinAggregateInputType = {
   id?: true
   timesPerWeek?: true
+  deletedAt?: true
   muscleId?: true
   mesocycleId?: true
 }
@@ -87,6 +91,7 @@ export type FrequencyMinAggregateInputType = {
 export type FrequencyMaxAggregateInputType = {
   id?: true
   timesPerWeek?: true
+  deletedAt?: true
   muscleId?: true
   mesocycleId?: true
 }
@@ -94,6 +99,7 @@ export type FrequencyMaxAggregateInputType = {
 export type FrequencyCountAggregateInputType = {
   id?: true
   timesPerWeek?: true
+  deletedAt?: true
   muscleId?: true
   mesocycleId?: true
   _all?: true
@@ -188,6 +194,7 @@ export type FrequencyGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type FrequencyGroupByOutputType = {
   id: number
   timesPerWeek: number
+  deletedAt: Date | null
   muscleId: number
   mesocycleId: number
   _count: FrequencyCountAggregateOutputType | null
@@ -218,6 +225,7 @@ export type FrequencyWhereInput = {
   NOT?: Prisma.FrequencyWhereInput | Prisma.FrequencyWhereInput[]
   id?: Prisma.IntFilter<"Frequency"> | number
   timesPerWeek?: Prisma.IntFilter<"Frequency"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Frequency"> | Date | string | null
   muscleId?: Prisma.IntFilter<"Frequency"> | number
   mesocycleId?: Prisma.IntFilter<"Frequency"> | number
   muscle?: Prisma.XOR<Prisma.MuscleScalarRelationFilter, Prisma.MuscleWhereInput>
@@ -227,6 +235,7 @@ export type FrequencyWhereInput = {
 export type FrequencyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   timesPerWeek?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
   muscle?: Prisma.MuscleOrderByWithRelationInput
@@ -239,6 +248,7 @@ export type FrequencyWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.FrequencyWhereInput[]
   NOT?: Prisma.FrequencyWhereInput | Prisma.FrequencyWhereInput[]
   timesPerWeek?: Prisma.IntFilter<"Frequency"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Frequency"> | Date | string | null
   muscleId?: Prisma.IntFilter<"Frequency"> | number
   mesocycleId?: Prisma.IntFilter<"Frequency"> | number
   muscle?: Prisma.XOR<Prisma.MuscleScalarRelationFilter, Prisma.MuscleWhereInput>
@@ -248,6 +258,7 @@ export type FrequencyWhereUniqueInput = Prisma.AtLeast<{
 export type FrequencyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   timesPerWeek?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
   _count?: Prisma.FrequencyCountOrderByAggregateInput
@@ -263,12 +274,14 @@ export type FrequencyScalarWhereWithAggregatesInput = {
   NOT?: Prisma.FrequencyScalarWhereWithAggregatesInput | Prisma.FrequencyScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Frequency"> | number
   timesPerWeek?: Prisma.IntWithAggregatesFilter<"Frequency"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Frequency"> | Date | string | null
   muscleId?: Prisma.IntWithAggregatesFilter<"Frequency"> | number
   mesocycleId?: Prisma.IntWithAggregatesFilter<"Frequency"> | number
 }
 
 export type FrequencyCreateInput = {
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscle: Prisma.MuscleCreateNestedOneWithoutFrequencyInput
   mesocycle: Prisma.MesocycleCreateNestedOneWithoutFrequencyInput
 }
@@ -276,12 +289,14 @@ export type FrequencyCreateInput = {
 export type FrequencyUncheckedCreateInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscleId: number
   mesocycleId: number
 }
 
 export type FrequencyUpdateInput = {
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutFrequencyNestedInput
   mesocycle?: Prisma.MesocycleUpdateOneRequiredWithoutFrequencyNestedInput
 }
@@ -289,6 +304,7 @@ export type FrequencyUpdateInput = {
 export type FrequencyUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -296,17 +312,20 @@ export type FrequencyUncheckedUpdateInput = {
 export type FrequencyCreateManyInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscleId: number
   mesocycleId: number
 }
 
 export type FrequencyUpdateManyMutationInput = {
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FrequencyUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -324,6 +343,7 @@ export type FrequencyOrderByRelationAggregateInput = {
 export type FrequencyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   timesPerWeek?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
 }
@@ -338,6 +358,7 @@ export type FrequencyAvgOrderByAggregateInput = {
 export type FrequencyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   timesPerWeek?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
 }
@@ -345,6 +366,7 @@ export type FrequencyMaxOrderByAggregateInput = {
 export type FrequencyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   timesPerWeek?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   mesocycleId?: Prisma.SortOrder
 }
@@ -442,12 +464,14 @@ export type FrequencyUncheckedUpdateManyWithoutMuscleNestedInput = {
 
 export type FrequencyCreateWithoutMesocycleInput = {
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscle: Prisma.MuscleCreateNestedOneWithoutFrequencyInput
 }
 
 export type FrequencyUncheckedCreateWithoutMesocycleInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscleId: number
 }
 
@@ -483,18 +507,21 @@ export type FrequencyScalarWhereInput = {
   NOT?: Prisma.FrequencyScalarWhereInput | Prisma.FrequencyScalarWhereInput[]
   id?: Prisma.IntFilter<"Frequency"> | number
   timesPerWeek?: Prisma.IntFilter<"Frequency"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Frequency"> | Date | string | null
   muscleId?: Prisma.IntFilter<"Frequency"> | number
   mesocycleId?: Prisma.IntFilter<"Frequency"> | number
 }
 
 export type FrequencyCreateWithoutMuscleInput = {
   timesPerWeek: number
+  deletedAt?: Date | string | null
   mesocycle: Prisma.MesocycleCreateNestedOneWithoutFrequencyInput
 }
 
 export type FrequencyUncheckedCreateWithoutMuscleInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   mesocycleId: number
 }
 
@@ -527,46 +554,54 @@ export type FrequencyUpdateManyWithWhereWithoutMuscleInput = {
 export type FrequencyCreateManyMesocycleInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   muscleId: number
 }
 
 export type FrequencyUpdateWithoutMesocycleInput = {
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutFrequencyNestedInput
 }
 
 export type FrequencyUncheckedUpdateWithoutMesocycleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type FrequencyUncheckedUpdateManyWithoutMesocycleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type FrequencyCreateManyMuscleInput = {
   id?: number
   timesPerWeek: number
+  deletedAt?: Date | string | null
   mesocycleId: number
 }
 
 export type FrequencyUpdateWithoutMuscleInput = {
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   mesocycle?: Prisma.MesocycleUpdateOneRequiredWithoutFrequencyNestedInput
 }
 
 export type FrequencyUncheckedUpdateWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type FrequencyUncheckedUpdateManyWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   timesPerWeek?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   mesocycleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -575,6 +610,7 @@ export type FrequencyUncheckedUpdateManyWithoutMuscleInput = {
 export type FrequencySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   timesPerWeek?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   mesocycleId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -584,6 +620,7 @@ export type FrequencySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type FrequencySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   timesPerWeek?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   mesocycleId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -593,6 +630,7 @@ export type FrequencySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type FrequencySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   timesPerWeek?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   mesocycleId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -602,11 +640,12 @@ export type FrequencySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type FrequencySelectScalar = {
   id?: boolean
   timesPerWeek?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   mesocycleId?: boolean
 }
 
-export type FrequencyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "timesPerWeek" | "muscleId" | "mesocycleId", ExtArgs["result"]["frequency"]>
+export type FrequencyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "timesPerWeek" | "deletedAt" | "muscleId" | "mesocycleId", ExtArgs["result"]["frequency"]>
 export type FrequencyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
   mesocycle?: boolean | Prisma.MesocycleDefaultArgs<ExtArgs>
@@ -629,6 +668,7 @@ export type $FrequencyPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     timesPerWeek: number
+    deletedAt: Date | null
     muscleId: number
     mesocycleId: number
   }, ExtArgs["result"]["frequency"]>
@@ -1058,6 +1098,7 @@ export interface Prisma__FrequencyClient<T, Null = never, ExtArgs extends runtim
 export interface FrequencyFieldRefs {
   readonly id: Prisma.FieldRef<"Frequency", 'Int'>
   readonly timesPerWeek: Prisma.FieldRef<"Frequency", 'Int'>
+  readonly deletedAt: Prisma.FieldRef<"Frequency", 'DateTime'>
   readonly muscleId: Prisma.FieldRef<"Frequency", 'Int'>
   readonly mesocycleId: Prisma.FieldRef<"Frequency", 'Int'>
 }

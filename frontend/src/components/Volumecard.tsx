@@ -3,7 +3,7 @@ type muscle = string
 type volume ={
     [key:string]:number
 }
-export default function Volumecard({muscleGroup, volume, setVolume}:{muscleGroup:muscle[], volume:volume, setVolume:React.Dispatch<SetStateAction<volume>>}){
+export default function Volumecard({muscleGroup, volume, setVolume}:{muscleGroup:muscle[], volume:volume, setVolume:React.Dispatch<React.SetStateAction<volume>>}){
    
     return(
         <>
@@ -24,4 +24,3 @@ export default function Volumecard({muscleGroup, volume, setVolume}:{muscleGroup
               
     )
 }
-

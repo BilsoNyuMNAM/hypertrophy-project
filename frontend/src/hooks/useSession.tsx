@@ -5,6 +5,10 @@ import {
     getPersistableExercises,
     type SessionExerciseDraft,
 } from "./sessionDraft"
+import {
+    buildSessionWeeklySetSummary,
+    type SessionWeeklySetSummarySeed,
+} from "./sessionWeeklySummary"
 
 type PerformanceData = {
     score: number
@@ -14,6 +18,7 @@ type PerformanceData = {
 export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId:string, mesoId:string}){
     const [sessionName, setSessionName] = useState("")
     const [addexercise, setAddexercise] = useState<SessionExerciseDraft[]>([])
+    const [weeklySetSummarySeed, setWeeklySetSummarySeed] = useState<SessionWeeklySetSummarySeed[]>([])
     const [apiCall, setApiCall] = useState(new Set());
         const MUSCLE_COLORS = {
         "legs": "#4ade80", "glutes": "#4ade80",
@@ -28,6 +33,7 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
         const res = await fetch(url)
         const data = await res.json()
         setSessionName(data.session_name)
+        setWeeklySetSummarySeed(data.weeklySetSummarySeed ?? [])
         console.log("session data", data.eachexercise)
         const result: SessionExerciseDraft[] = data.eachexercise.map((exercise: any, index: number)=>{
             
@@ -224,8 +230,12 @@ export function useSession({sessionId, weekId, mesoId}:{sessionId:string, weekId
     }
 
     const persistableExercises = getPersistableExercises(addexercise)
+    const weeklySetSummary = buildSessionWeeklySetSummary(
+        weeklySetSummarySeed,
+        addexercise
+    )
 
-    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, deleteSet, deleteExercise, sessionName, addexercise, persistableExercises, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData:getSessionname}
+    return {MUSCLE_COLORS, Addexercise,submitSession,  Selecttrainedmuscle, exerciseName, addsetData, addSet, deleteSet, deleteExercise, sessionName, addexercise, persistableExercises, apiCall, setApiCall, logSoreness, logPerformanceByMuscle, refreshSessionData:getSessionname, weeklySetSummary}
     
 
 }

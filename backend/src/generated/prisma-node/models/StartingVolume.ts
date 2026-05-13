@@ -43,6 +43,7 @@ export type StartingVolumeSumAggregateOutputType = {
 export type StartingVolumeMinAggregateOutputType = {
   id: number | null
   set: number | null
+  deletedAt: Date | null
   muscleId: number | null
   weekId: number | null
 }
@@ -50,6 +51,7 @@ export type StartingVolumeMinAggregateOutputType = {
 export type StartingVolumeMaxAggregateOutputType = {
   id: number | null
   set: number | null
+  deletedAt: Date | null
   muscleId: number | null
   weekId: number | null
 }
@@ -57,6 +59,7 @@ export type StartingVolumeMaxAggregateOutputType = {
 export type StartingVolumeCountAggregateOutputType = {
   id: number
   set: number
+  deletedAt: number
   muscleId: number
   weekId: number
   _all: number
@@ -80,6 +83,7 @@ export type StartingVolumeSumAggregateInputType = {
 export type StartingVolumeMinAggregateInputType = {
   id?: true
   set?: true
+  deletedAt?: true
   muscleId?: true
   weekId?: true
 }
@@ -87,6 +91,7 @@ export type StartingVolumeMinAggregateInputType = {
 export type StartingVolumeMaxAggregateInputType = {
   id?: true
   set?: true
+  deletedAt?: true
   muscleId?: true
   weekId?: true
 }
@@ -94,6 +99,7 @@ export type StartingVolumeMaxAggregateInputType = {
 export type StartingVolumeCountAggregateInputType = {
   id?: true
   set?: true
+  deletedAt?: true
   muscleId?: true
   weekId?: true
   _all?: true
@@ -188,6 +194,7 @@ export type StartingVolumeGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type StartingVolumeGroupByOutputType = {
   id: number
   set: number
+  deletedAt: Date | null
   muscleId: number
   weekId: number
   _count: StartingVolumeCountAggregateOutputType | null
@@ -218,6 +225,7 @@ export type StartingVolumeWhereInput = {
   NOT?: Prisma.StartingVolumeWhereInput | Prisma.StartingVolumeWhereInput[]
   id?: Prisma.IntFilter<"StartingVolume"> | number
   set?: Prisma.IntFilter<"StartingVolume"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"StartingVolume"> | Date | string | null
   muscleId?: Prisma.IntFilter<"StartingVolume"> | number
   weekId?: Prisma.IntFilter<"StartingVolume"> | number
   muscle?: Prisma.XOR<Prisma.MuscleScalarRelationFilter, Prisma.MuscleWhereInput>
@@ -227,6 +235,7 @@ export type StartingVolumeWhereInput = {
 export type StartingVolumeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   set?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
   muscle?: Prisma.MuscleOrderByWithRelationInput
@@ -239,6 +248,7 @@ export type StartingVolumeWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.StartingVolumeWhereInput[]
   NOT?: Prisma.StartingVolumeWhereInput | Prisma.StartingVolumeWhereInput[]
   set?: Prisma.IntFilter<"StartingVolume"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"StartingVolume"> | Date | string | null
   muscleId?: Prisma.IntFilter<"StartingVolume"> | number
   weekId?: Prisma.IntFilter<"StartingVolume"> | number
   muscle?: Prisma.XOR<Prisma.MuscleScalarRelationFilter, Prisma.MuscleWhereInput>
@@ -248,6 +258,7 @@ export type StartingVolumeWhereUniqueInput = Prisma.AtLeast<{
 export type StartingVolumeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   set?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
   _count?: Prisma.StartingVolumeCountOrderByAggregateInput
@@ -263,12 +274,14 @@ export type StartingVolumeScalarWhereWithAggregatesInput = {
   NOT?: Prisma.StartingVolumeScalarWhereWithAggregatesInput | Prisma.StartingVolumeScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"StartingVolume"> | number
   set?: Prisma.IntWithAggregatesFilter<"StartingVolume"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"StartingVolume"> | Date | string | null
   muscleId?: Prisma.IntWithAggregatesFilter<"StartingVolume"> | number
   weekId?: Prisma.IntWithAggregatesFilter<"StartingVolume"> | number
 }
 
 export type StartingVolumeCreateInput = {
   set: number
+  deletedAt?: Date | string | null
   muscle: Prisma.MuscleCreateNestedOneWithoutStartingvolumeInput
   week: Prisma.WeekCreateNestedOneWithoutStartingvolumeInput
 }
@@ -276,12 +289,14 @@ export type StartingVolumeCreateInput = {
 export type StartingVolumeUncheckedCreateInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   muscleId: number
   weekId: number
 }
 
 export type StartingVolumeUpdateInput = {
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutStartingvolumeNestedInput
   week?: Prisma.WeekUpdateOneRequiredWithoutStartingvolumeNestedInput
 }
@@ -289,6 +304,7 @@ export type StartingVolumeUpdateInput = {
 export type StartingVolumeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -296,17 +312,20 @@ export type StartingVolumeUncheckedUpdateInput = {
 export type StartingVolumeCreateManyInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   muscleId: number
   weekId: number
 }
 
 export type StartingVolumeUpdateManyMutationInput = {
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type StartingVolumeUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -324,6 +343,7 @@ export type StartingVolumeOrderByRelationAggregateInput = {
 export type StartingVolumeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   set?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
@@ -338,6 +358,7 @@ export type StartingVolumeAvgOrderByAggregateInput = {
 export type StartingVolumeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   set?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
@@ -345,6 +366,7 @@ export type StartingVolumeMaxOrderByAggregateInput = {
 export type StartingVolumeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   set?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   muscleId?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
@@ -442,12 +464,14 @@ export type StartingVolumeUncheckedUpdateManyWithoutMuscleNestedInput = {
 
 export type StartingVolumeCreateWithoutWeekInput = {
   set: number
+  deletedAt?: Date | string | null
   muscle: Prisma.MuscleCreateNestedOneWithoutStartingvolumeInput
 }
 
 export type StartingVolumeUncheckedCreateWithoutWeekInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   muscleId: number
 }
 
@@ -483,18 +507,21 @@ export type StartingVolumeScalarWhereInput = {
   NOT?: Prisma.StartingVolumeScalarWhereInput | Prisma.StartingVolumeScalarWhereInput[]
   id?: Prisma.IntFilter<"StartingVolume"> | number
   set?: Prisma.IntFilter<"StartingVolume"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"StartingVolume"> | Date | string | null
   muscleId?: Prisma.IntFilter<"StartingVolume"> | number
   weekId?: Prisma.IntFilter<"StartingVolume"> | number
 }
 
 export type StartingVolumeCreateWithoutMuscleInput = {
   set: number
+  deletedAt?: Date | string | null
   week: Prisma.WeekCreateNestedOneWithoutStartingvolumeInput
 }
 
 export type StartingVolumeUncheckedCreateWithoutMuscleInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   weekId: number
 }
 
@@ -527,46 +554,54 @@ export type StartingVolumeUpdateManyWithWhereWithoutMuscleInput = {
 export type StartingVolumeCreateManyWeekInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   muscleId: number
 }
 
 export type StartingVolumeUpdateWithoutWeekInput = {
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscle?: Prisma.MuscleUpdateOneRequiredWithoutStartingvolumeNestedInput
 }
 
 export type StartingVolumeUncheckedUpdateWithoutWeekInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StartingVolumeUncheckedUpdateManyWithoutWeekInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   muscleId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StartingVolumeCreateManyMuscleInput = {
   id?: number
   set: number
+  deletedAt?: Date | string | null
   weekId: number
 }
 
 export type StartingVolumeUpdateWithoutMuscleInput = {
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateOneRequiredWithoutStartingvolumeNestedInput
 }
 
 export type StartingVolumeUncheckedUpdateWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StartingVolumeUncheckedUpdateManyWithoutMuscleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -575,6 +610,7 @@ export type StartingVolumeUncheckedUpdateManyWithoutMuscleInput = {
 export type StartingVolumeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   set?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   weekId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -584,6 +620,7 @@ export type StartingVolumeSelect<ExtArgs extends runtime.Types.Extensions.Intern
 export type StartingVolumeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   set?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   weekId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -593,6 +630,7 @@ export type StartingVolumeSelectCreateManyAndReturn<ExtArgs extends runtime.Type
 export type StartingVolumeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   set?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   weekId?: boolean
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
@@ -602,11 +640,12 @@ export type StartingVolumeSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type StartingVolumeSelectScalar = {
   id?: boolean
   set?: boolean
+  deletedAt?: boolean
   muscleId?: boolean
   weekId?: boolean
 }
 
-export type StartingVolumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "set" | "muscleId" | "weekId", ExtArgs["result"]["startingVolume"]>
+export type StartingVolumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "set" | "deletedAt" | "muscleId" | "weekId", ExtArgs["result"]["startingVolume"]>
 export type StartingVolumeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   muscle?: boolean | Prisma.MuscleDefaultArgs<ExtArgs>
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
@@ -629,6 +668,7 @@ export type $StartingVolumePayload<ExtArgs extends runtime.Types.Extensions.Inte
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     set: number
+    deletedAt: Date | null
     muscleId: number
     weekId: number
   }, ExtArgs["result"]["startingVolume"]>
@@ -1058,6 +1098,7 @@ export interface Prisma__StartingVolumeClient<T, Null = never, ExtArgs extends r
 export interface StartingVolumeFieldRefs {
   readonly id: Prisma.FieldRef<"StartingVolume", 'Int'>
   readonly set: Prisma.FieldRef<"StartingVolume", 'Int'>
+  readonly deletedAt: Prisma.FieldRef<"StartingVolume", 'DateTime'>
   readonly muscleId: Prisma.FieldRef<"StartingVolume", 'Int'>
   readonly weekId: Prisma.FieldRef<"StartingVolume", 'Int'>
 }

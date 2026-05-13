@@ -39,18 +39,21 @@ export type SessionSumAggregateOutputType = {
 export type SessionMinAggregateOutputType = {
   id: number | null
   session_name: string | null
+  deletedAt: Date | null
   weekId: number | null
 }
 
 export type SessionMaxAggregateOutputType = {
   id: number | null
   session_name: string | null
+  deletedAt: Date | null
   weekId: number | null
 }
 
 export type SessionCountAggregateOutputType = {
   id: number
   session_name: number
+  deletedAt: number
   weekId: number
   _all: number
 }
@@ -69,18 +72,21 @@ export type SessionSumAggregateInputType = {
 export type SessionMinAggregateInputType = {
   id?: true
   session_name?: true
+  deletedAt?: true
   weekId?: true
 }
 
 export type SessionMaxAggregateInputType = {
   id?: true
   session_name?: true
+  deletedAt?: true
   weekId?: true
 }
 
 export type SessionCountAggregateInputType = {
   id?: true
   session_name?: true
+  deletedAt?: true
   weekId?: true
   _all?: true
 }
@@ -174,6 +180,7 @@ export type SessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type SessionGroupByOutputType = {
   id: number
   session_name: string
+  deletedAt: Date | null
   weekId: number
   _count: SessionCountAggregateOutputType | null
   _avg: SessionAvgAggregateOutputType | null
@@ -203,6 +210,7 @@ export type SessionWhereInput = {
   NOT?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[]
   id?: Prisma.IntFilter<"Session"> | number
   session_name?: Prisma.StringFilter<"Session"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Session"> | Date | string | null
   weekId?: Prisma.IntFilter<"Session"> | number
   week?: Prisma.XOR<Prisma.WeekScalarRelationFilter, Prisma.WeekWhereInput>
   exerciselogs?: Prisma.ExerciselogListRelationFilter
@@ -212,6 +220,7 @@ export type SessionWhereInput = {
 export type SessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   session_name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrder
   week?: Prisma.WeekOrderByWithRelationInput
   exerciselogs?: Prisma.ExerciselogOrderByRelationAggregateInput
@@ -224,6 +233,7 @@ export type SessionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SessionWhereInput[]
   NOT?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[]
   session_name?: Prisma.StringFilter<"Session"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Session"> | Date | string | null
   weekId?: Prisma.IntFilter<"Session"> | number
   week?: Prisma.XOR<Prisma.WeekScalarRelationFilter, Prisma.WeekWhereInput>
   exerciselogs?: Prisma.ExerciselogListRelationFilter
@@ -233,6 +243,7 @@ export type SessionWhereUniqueInput = Prisma.AtLeast<{
 export type SessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   session_name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrder
   _count?: Prisma.SessionCountOrderByAggregateInput
   _avg?: Prisma.SessionAvgOrderByAggregateInput
@@ -247,11 +258,13 @@ export type SessionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SessionScalarWhereWithAggregatesInput | Prisma.SessionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Session"> | number
   session_name?: Prisma.StringWithAggregatesFilter<"Session"> | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
   weekId?: Prisma.IntWithAggregatesFilter<"Session"> | number
 }
 
 export type SessionCreateInput = {
   session_name: string
+  deletedAt?: Date | string | null
   week: Prisma.WeekCreateNestedOneWithoutSessionInput
   exerciselogs?: Prisma.ExerciselogCreateNestedManyWithoutSessionInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutSessionInput
@@ -260,6 +273,7 @@ export type SessionCreateInput = {
 export type SessionUncheckedCreateInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
   weekId: number
   exerciselogs?: Prisma.ExerciselogUncheckedCreateNestedManyWithoutSessionInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutSessionInput
@@ -267,6 +281,7 @@ export type SessionUncheckedCreateInput = {
 
 export type SessionUpdateInput = {
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateOneRequiredWithoutSessionNestedInput
   exerciselogs?: Prisma.ExerciselogUpdateManyWithoutSessionNestedInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutSessionNestedInput
@@ -275,6 +290,7 @@ export type SessionUpdateInput = {
 export type SessionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
   exerciselogs?: Prisma.ExerciselogUncheckedUpdateManyWithoutSessionNestedInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutSessionNestedInput
@@ -283,16 +299,19 @@ export type SessionUncheckedUpdateInput = {
 export type SessionCreateManyInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
   weekId: number
 }
 
 export type SessionUpdateManyMutationInput = {
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type SessionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -309,6 +328,7 @@ export type SessionOrderByRelationAggregateInput = {
 export type SessionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   session_name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
 
@@ -320,12 +340,14 @@ export type SessionAvgOrderByAggregateInput = {
 export type SessionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   session_name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
 
 export type SessionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   session_name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
 
@@ -411,6 +433,7 @@ export type SessionUpdateOneRequiredWithoutExerciselogsNestedInput = {
 
 export type SessionCreateWithoutWeekInput = {
   session_name: string
+  deletedAt?: Date | string | null
   exerciselogs?: Prisma.ExerciselogCreateNestedManyWithoutSessionInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutSessionInput
 }
@@ -418,6 +441,7 @@ export type SessionCreateWithoutWeekInput = {
 export type SessionUncheckedCreateWithoutWeekInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
   exerciselogs?: Prisma.ExerciselogUncheckedCreateNestedManyWithoutSessionInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutSessionInput
 }
@@ -454,11 +478,13 @@ export type SessionScalarWhereInput = {
   NOT?: Prisma.SessionScalarWhereInput | Prisma.SessionScalarWhereInput[]
   id?: Prisma.IntFilter<"Session"> | number
   session_name?: Prisma.StringFilter<"Session"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Session"> | Date | string | null
   weekId?: Prisma.IntFilter<"Session"> | number
 }
 
 export type SessionCreateWithoutSessionmusclefeedbackInput = {
   session_name: string
+  deletedAt?: Date | string | null
   week: Prisma.WeekCreateNestedOneWithoutSessionInput
   exerciselogs?: Prisma.ExerciselogCreateNestedManyWithoutSessionInput
 }
@@ -466,6 +492,7 @@ export type SessionCreateWithoutSessionmusclefeedbackInput = {
 export type SessionUncheckedCreateWithoutSessionmusclefeedbackInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
   weekId: number
   exerciselogs?: Prisma.ExerciselogUncheckedCreateNestedManyWithoutSessionInput
 }
@@ -488,6 +515,7 @@ export type SessionUpdateToOneWithWhereWithoutSessionmusclefeedbackInput = {
 
 export type SessionUpdateWithoutSessionmusclefeedbackInput = {
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateOneRequiredWithoutSessionNestedInput
   exerciselogs?: Prisma.ExerciselogUpdateManyWithoutSessionNestedInput
 }
@@ -495,12 +523,14 @@ export type SessionUpdateWithoutSessionmusclefeedbackInput = {
 export type SessionUncheckedUpdateWithoutSessionmusclefeedbackInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
   exerciselogs?: Prisma.ExerciselogUncheckedUpdateManyWithoutSessionNestedInput
 }
 
 export type SessionCreateWithoutExerciselogsInput = {
   session_name: string
+  deletedAt?: Date | string | null
   week: Prisma.WeekCreateNestedOneWithoutSessionInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackCreateNestedManyWithoutSessionInput
 }
@@ -508,6 +538,7 @@ export type SessionCreateWithoutExerciselogsInput = {
 export type SessionUncheckedCreateWithoutExerciselogsInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
   weekId: number
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedCreateNestedManyWithoutSessionInput
 }
@@ -530,6 +561,7 @@ export type SessionUpdateToOneWithWhereWithoutExerciselogsInput = {
 
 export type SessionUpdateWithoutExerciselogsInput = {
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateOneRequiredWithoutSessionNestedInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutSessionNestedInput
 }
@@ -537,6 +569,7 @@ export type SessionUpdateWithoutExerciselogsInput = {
 export type SessionUncheckedUpdateWithoutExerciselogsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.IntFieldUpdateOperationsInput | number
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutSessionNestedInput
 }
@@ -544,10 +577,12 @@ export type SessionUncheckedUpdateWithoutExerciselogsInput = {
 export type SessionCreateManyWeekInput = {
   id?: number
   session_name: string
+  deletedAt?: Date | string | null
 }
 
 export type SessionUpdateWithoutWeekInput = {
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciselogs?: Prisma.ExerciselogUpdateManyWithoutSessionNestedInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUpdateManyWithoutSessionNestedInput
 }
@@ -555,6 +590,7 @@ export type SessionUpdateWithoutWeekInput = {
 export type SessionUncheckedUpdateWithoutWeekInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciselogs?: Prisma.ExerciselogUncheckedUpdateManyWithoutSessionNestedInput
   sessionmusclefeedback?: Prisma.SessionMuscleFeedbackUncheckedUpdateManyWithoutSessionNestedInput
 }
@@ -562,6 +598,7 @@ export type SessionUncheckedUpdateWithoutWeekInput = {
 export type SessionUncheckedUpdateManyWithoutWeekInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   session_name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -607,6 +644,7 @@ export type SessionCountOutputTypeCountSessionmusclefeedbackArgs<ExtArgs extends
 export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   session_name?: boolean
+  deletedAt?: boolean
   weekId?: boolean
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
   exerciselogs?: boolean | Prisma.Session$exerciselogsArgs<ExtArgs>
@@ -617,6 +655,7 @@ export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type SessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   session_name?: boolean
+  deletedAt?: boolean
   weekId?: boolean
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["session"]>
@@ -624,6 +663,7 @@ export type SessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type SessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   session_name?: boolean
+  deletedAt?: boolean
   weekId?: boolean
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["session"]>
@@ -631,10 +671,11 @@ export type SessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type SessionSelectScalar = {
   id?: boolean
   session_name?: boolean
+  deletedAt?: boolean
   weekId?: boolean
 }
 
-export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "session_name" | "weekId", ExtArgs["result"]["session"]>
+export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "session_name" | "deletedAt" | "weekId", ExtArgs["result"]["session"]>
 export type SessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
   exerciselogs?: boolean | Prisma.Session$exerciselogsArgs<ExtArgs>
@@ -658,6 +699,7 @@ export type $SessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     session_name: string
+    deletedAt: Date | null
     weekId: number
   }, ExtArgs["result"]["session"]>
   composites: {}
@@ -1087,6 +1129,7 @@ export interface Prisma__SessionClient<T, Null = never, ExtArgs extends runtime.
 export interface SessionFieldRefs {
   readonly id: Prisma.FieldRef<"Session", 'Int'>
   readonly session_name: Prisma.FieldRef<"Session", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Session", 'DateTime'>
   readonly weekId: Prisma.FieldRef<"Session", 'Int'>
 }
     

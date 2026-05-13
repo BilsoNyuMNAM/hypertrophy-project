@@ -1,6 +1,20 @@
 import { useNavigate } from "react-router-dom"
 
-export default function Sessioncard({id, sessionName, number, weekId, mesoId}:{id:number, sessionName:string, number:number, weekId:string, mesoId:string}){
+export default function Sessioncard({
+    id,
+    sessionName,
+    number,
+    weekId,
+    mesoId,
+    onDeleteSession,
+}:{
+    id:number,
+    sessionName:string,
+    number:number,
+    weekId:string,
+    mesoId:string,
+    onDeleteSession:(sessionId:number, sessionName:string)=>void | Promise<void>
+}){
     const navigate = useNavigate()
     const sessionId = id
     console.log("Sesion data received in session card", sessionName, id, number)
@@ -18,7 +32,16 @@ export default function Sessioncard({id, sessionName, number, weekId, mesoId}:{i
                         <p className="text-gray-400 text-xs ">Session {number} </p>
                     </div>
                 </div>
-                <div>
+                <div className="flex items-center gap-3">
+                    <button
+                        className="cursor-pointer border border-[#2a2a2a] rounded-[8px] px-3 py-2 text-[10px] tracking-[0.12em] text-[#9ca3af] transition-colors duration-150 hover:text-red-400 hover:border-red-400"
+                        onClick={(event)=>{
+                            event.stopPropagation()
+                            onDeleteSession(sessionId, sessionName)
+                        }}
+                    >
+                        DELETE
+                    </button>
                     <button className="cursor-pointer" onClick={()=>{navigate(`/mesocycle/week/session/${sessionId}`, { state: { weekId, mesoId } })}}>→</button>
                 </div>
             </div>

@@ -1,110 +1,105 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import VolumeOverview from "../components/Volumeoverview"
+
+type WeekData = {
+    id: number
+    week_name: string
+    mesocycleId: number
+    unlocked: boolean
+    startingVolumeCount: number
+}
+
 export default function Mesocycleui(){
     const {id} = useParams()
-    
-    const [mesoName, setMesoname] = useState("name")
-    const [weekName, setWeekname] = useState([])
-    const [totalSession, settotalSession] = useState(0)
-    // const [selectedWeek, setSelectedWeek] = useState(1)
-    useEffect(()=>{
-        const result = async()=>{
-            const response = await fetch(`http://localhost:8787/api/v1/mesoCycle/${id}`)
-            return response 
-        }
-
-        const fetchedData = async ()=>{
-            const jsm = await result()
-            const jsonifieddata = await jsm.json() // "result":{"name":{}, "weekname":[{}, {}, {}]}
-            setMesoname(jsonifieddata.result.name.name)
-            setWeekname(jsonifieddata.result.weekname)
-            settotalSession(jsonifieddata.result.totalsession)
-        }
-
-        fetchedData()   
-    },[])
-    
     const navigate = useNavigate()
-
-    // return(
-    //     <div className="w-full h-screen bg-black text-white overflow-y-auto">
-    //         <div className="w-full h-screen max-w-5xl mx-auto mt-7 ">
-    //             <div className="px-8 py-6">
-    //                 <button onClick={() => navigate(-1)} className="mb-10">← Back to Mesocycles</button>
-    //                 <div>
-    //                     <div className="font-spaceMono color-[ #444] text-gray-400 font-thin text-xs">MESOCYCLE </div>
-    //                     <div><span className="font-bebas text-5xl">{mesoName}</span></div>
-    //                 </div>
-    //             </div>
-    //             <div>
-    //                 <div className="px-8 py-6">
-    //                     <svg width="100%" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg">
-    //                 <defs>
-    //                     <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-    //                     <stop offset="0%" stopColor="white" stopOpacity="0.04" />
-    //                     <stop offset="100%" stopColor="white" stopOpacity="0" />
-    //                     </linearGradient>
-    //                 </defs>
+    const{data} = useQuery({
+        queryKey:['mesoCycledata', id], //the cache box  //react use it to cache and find data later //imagine id as differnt slot in a boz
+        //['mesoCycledata', id] means — "cache this data under the name mesoCycledata, but separately for each unique id"
+        queryFn: async function(){
+            const result = await fetch(`http://localhost:8787/api/v1/mesoCycle/${id}`)
+            return await result.json();
+        }
+    })
+    
+  
+    const [selectedWeekId, setSelectedWeekId] = useState<string | null>(null)
+    const [selectedWeekNumber, setSelectedWeekNumber] = useState<number | null>(null)
+    const [selectedWeekIsFinal, setSelectedWeekIsFinal] = useState(false)
+    const [isCalculating, setIsCalculating] = useState(false)
+    const [isResetting, setIsResetting] = useState(false)
+    const [calculateMessage, setCalculateMessage] = useState("")
+    const [calculateErrors, setCalculateErrors] = useState<string[]>([])
 
 
-    //                 <path
-    //                     d="M 80 80 L 80 55 C 112 52, 176 47, 240 42 C 304 37, 336 34, 400 30 C 464 25, 496 11, 560 18 C 624 25, 688 55, 720 65 L 720 80 Z"
-    //                     fill="url(#curveGradient)"
-    //                 />
+    async function handleCalculateNextWeek() {
+        if (!selectedWeekId || selectedWeekIsFinal || isCalculating) return
 
+        setIsCalculating(true)
+        setCalculateMessage("")
+        setCalculateErrors([])
 
-    //                 <path
-    //                     d="M 80 55 C 112 52, 176 47, 240 42 C 304 37, 336 34, 400 30 C 464 25, 496 11, 560 18 C 624 25, 688 55, 720 65"
-    //                     fill="none"
-    //                     stroke="#333"
-    //                     strokeWidth="1.5"
-    //                 />
+        try {
+            const response = await fetch(
+                `http://localhost:8787/api/v1/mesoCycle/week/calculate-next/${selectedWeekId}`,
+                {
+                    method: "POST",
+                }
+            )
+            const data = await response.json()
 
+            if (!response.ok) {
+                const errors = Array.isArray(data.errors)
+                    ? data.errors.map((error: { message?: string }) => error.message || "Incomplete data found")
+                    : []
 
-    //                 <text x="560" y="10" textAnchor="middle" fill="#444" fontSize="9"
-    //                     fontFamily="monospace" letterSpacing="2">PEAK</text>
+                setCalculateErrors(errors)
+                setCalculateMessage(data.message || "Unable to calculate next week volume.")
+                return
+            }
 
+            setCalculateMessage("Next week volume calculated and unlocked successfully.")
+            await fetchMesocycleData()
+        } catch (error) {
+            setCalculateMessage("Failed to calculate next week volume.")
+        } finally {
+            setIsCalculating(false)
+        }
+    }
 
+    async function handleResetFromSelectedWeek() {
+        if (!selectedWeekId || isResetting || selectedWeekNumber === 1) return
 
-    //                 <circle cx="80" cy="55" r="5" fill="white" filter="url(#glow)" />
+        setIsResetting(true)
+        setCalculateMessage("")
+        setCalculateErrors([])
 
-    //                 <circle cx="240" cy="42" r="4" fill="none" stroke="#333" strokeWidth="1.5" />
+        try {
+            const response = await fetch(
+                `http://localhost:8787/api/v1/mesoCycle/week/reset-from/${selectedWeekId}`,
+                {
+                    method: "POST",
+                }
+            )
+            const data = await response.json()
 
-    //                 <circle cx="400" cy="30" r="4" fill="none" stroke="#333" strokeWidth="1.5" />
+            if (!response.ok) {
+                setCalculateMessage(data.message || "Unable to reset from selected week.")
+                return
+            }
 
-    //                 <circle cx="560" cy="18" r="4" fill="none" stroke="#333" strokeWidth="1.5" />
-                    
-    //                 <circle cx="720" cy="65" r="4" fill="none" stroke="#333" strokeWidth="1.5" />
+            setCalculateMessage("Reset complete. Selected week and following weeks are now locked.")
+            await fetchMesocycleData()
+        } catch (error) {
+            setCalculateMessage("Failed to reset from selected week.")
+        } finally {
+            setIsResetting(false)
+        }
+    }
+    
+    
 
-
-    //                 <text x="80"  y="78" textAnchor="middle" fill="#888" fontSize="10" fontFamily="monospace">W1</text>
-    //                 <text x="240" y="78" textAnchor="middle" fill="#333" fontSize="10" fontFamily="monospace">W2</text>
-    //                 <text x="400" y="78" textAnchor="middle" fill="#333" fontSize="10" fontFamily="monospace">W3</text>
-    //                 <text x="560" y="78" textAnchor="middle" fill="#333" fontSize="10" fontFamily="monospace">W4</text>
-    //                 <text x="720" y="78" textAnchor="middle" fill="#333" fontSize="10" fontFamily="monospace">W5</text>
-
-
-    //                 <defs>
-    //                     <filter id="glow">
-    //                     <feGaussianBlur stdDeviation="2.5" result="blur" />
-    //                     <feMerge>
-    //                         <feMergeNode in="blur" />
-    //                         <feMergeNode in="SourceGraphic" />
-    //                     </feMerge>
-    //                     </filter>
-    //                 </defs>
-    //                     </svg>
-    //                 </div>
-    //                 <div className="px-8 py-6">
-    //                     <VolumeOverview weekName={weekName} id={id}/>
-    //                 </div>
-                    
-    //             </div>
-    //         </div>
-            
-    //     </div>
-    // )
     return (
     <div className="w-full min-h-screen bg-black text-white overflow-y-auto" style={{ fontFamily: "'Barlow', sans-serif" }}>
         <div className="w-full max-w-5xl mx-auto">
@@ -129,7 +124,7 @@ export default function Mesocycleui(){
                     MESOCYCLE
                 </div>
                 <div className="font-bebas text-7xl leading-none text-white uppercase tracking-tight">
-                    {mesoName}
+                    {data?.result.name.name || "Mesocycle Name"}
                 </div>
 
                 
@@ -141,7 +136,7 @@ export default function Mesocycleui(){
                     <div className="w-px h-9 bg-white/10" />
                     <div className="flex flex-col gap-1">
                         <div className="font-extrabold text-5xl text-[#c8ff00]">
-                            {totalSession}
+                            {data?.result.totalsession || 0}
                         </div>
                         <span className="text-xs tracking-widest text-gray-600" style={{ fontFamily: "'JetBrains Mono', monospace" }}> SESSIONS</span>
                     </div>
@@ -149,7 +144,7 @@ export default function Mesocycleui(){
                     <div className="w-px h-9 bg-white/10" />
                     <div className="flex flex-col gap-1">
                         <div className="font-extrabold text-5xl text-white">
-                            {weekName?.length == 0 ? "0" : weekName?.length} 
+                            {data?.result.weekname?.length == 0 ? "0" : data?.result.weekname?.length}
                         </div>
                         <span className="text-xs tracking-widest text-gray-600" style={{ fontFamily: "'JetBrains Mono', monospace" }}> WEEKS</span>
                     </div>
@@ -160,62 +155,55 @@ export default function Mesocycleui(){
             <div className="mx-12 my-10 h-px bg-white/10" />
 
            
-            <div className="px-12">
-                <div className="text-xs tracking-widest text-gray-600 mb-6" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-                    VOLUME PROGRESSION
-                </div>
-                <svg width="100%" viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#c8ff00" stopOpacity="0.25" />
-                            <stop offset="100%" stopColor="#c8ff00" stopOpacity="0" />
-                        </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="3" result="blur" />
-                            <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-
-                    
-                    <path
-                        d="M 80 80 L 80 55 C 112 52, 176 47, 240 42 C 304 37, 336 34, 400 30 C 464 25, 496 11, 560 18 C 624 25, 688 55, 720 65 L 720 80 Z"
-                        fill="url(#curveGradient)"
-                    />
-
-                    
-                    <path
-                        d="M 80 55 C 112 52, 176 47, 240 42 C 304 37, 336 34, 400 30 C 464 25, 496 11, 560 18 C 624 25, 688 55, 720 65"
-                        fill="none"
-                        stroke="#333"
-                        strokeWidth="1.5"
-                    />
-
-                    
-                    <text x="560" y="10" textAnchor="middle" fill="#444" fontSize="9"
-                        fontFamily="monospace" letterSpacing="2">PEAK</text>
-
-                    
-                    <circle cx="80" cy="55" r="7" fill="#c8ff00" filter="url(#glow)" />
-
-                   
-                    <circle cx="240" cy="42" r="4" fill="#111" stroke="#333" strokeWidth="1.5" />
-                    <circle cx="400" cy="30" r="4" fill="#111" stroke="#333" strokeWidth="1.5" />
-                    <circle cx="560" cy="18" r="4" fill="#111" stroke="#333" strokeWidth="1.5" />
-                    <circle cx="720" cy="65" r="4" fill="#111" stroke="#333" strokeWidth="1.5" />
-
-                    
-                    <text x="80"  y="86" textAnchor="middle" fill="#c8ff00" fontSize="10" fontFamily="monospace">W1</text>
-                    <text x="240" y="86" textAnchor="middle" fill="#333"    fontSize="10" fontFamily="monospace">W2</text>
-                    <text x="400" y="86" textAnchor="middle" fill="#333"    fontSize="10" fontFamily="monospace">W3</text>
-                    <text x="560" y="86" textAnchor="middle" fill="#333"    fontSize="10" fontFamily="monospace">W4</text>
-                    <text x="720" y="86" textAnchor="middle" fill="#333"    fontSize="10" fontFamily="monospace">W5</text>
-                </svg>
-            </div>
+            
             <div className="px-12 mt-10 pb-16">
-                    <VolumeOverview weekName={weekName} id={id} />
+                    <div className="mb-6 flex flex-wrap items-center gap-3">
+                        <button
+                            type="button"
+                            onClick={handleCalculateNextWeek}
+                            disabled={selectedWeekIsFinal || isCalculating || !selectedWeekId}
+                            className="inline-flex items-center justify-center rounded-md border border-[#c8ff00] px-4 py-2 text-xs tracking-widest text-[#c8ff00] transition-colors hover:bg-[#c8ff00] hover:text-black disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-[#c8ff00]"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                            {selectedWeekIsFinal
+                                ? "MESOCYCLE COMPLETE"
+                                : isCalculating
+                                    ? "CALCULATING..."
+                                    : "CALCULATE VOLUME FOR NEXT WEEK"}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleResetFromSelectedWeek}
+                            disabled={isResetting || !selectedWeekId || selectedWeekNumber === 1}
+                            className="inline-flex items-center justify-center rounded-md border border-red-400/70 px-4 py-2 text-xs tracking-widest text-red-200 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-40"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                            {isResetting ? "RESETTING..." : "RESET FROM SELECTED WEEK"}
+                        </button>
+                    </div>
+                    {calculateMessage ? (
+                        <div className="mb-4 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-xs text-gray-300">
+                            {calculateMessage}
+                        </div>
+                    ) : null}
+                    {calculateErrors.length > 0 ? (
+                        <div className="mb-6 rounded-md border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-200">
+                            {calculateErrors.map((error, index) => (
+                                <div key={`${error}-${index}`}>{error}</div>
+                            ))}
+                        </div>
+                    ) : null}
+                    <VolumeOverview
+                        weekName={data?.result.weekname || []}
+                        id={id || ""}
+                        onWeekChange={({ weekId, weekNumber, isFinalWeek }) => {
+                            setSelectedWeekId(weekId)
+                            setSelectedWeekNumber(weekNumber)
+                            setSelectedWeekIsFinal(isFinalWeek)
+                            setCalculateMessage("")
+                            setCalculateErrors([])
+                        }}
+                    />
             </div>
 
         </div>

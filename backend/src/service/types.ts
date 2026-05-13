@@ -1,4 +1,3 @@
-// Types for session-related operations
 
 export interface SetData {
   reps: number;
@@ -15,7 +14,6 @@ export interface SorenessData {
 export interface PerformanceData {
   performance_score?: number;
   score?: number;
-  level?: string;
   description?: string;
 }
 
@@ -31,5 +29,5 @@ export interface SessionPayload {
   sessionData: ExerciseData[];
 }
 
-// Prisma transaction type - using any to avoid complex generics
+
 export type PrismaTransaction = any;

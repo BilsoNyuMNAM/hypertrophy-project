@@ -10,7 +10,15 @@ type mesocycle = {
         week:number
     }
 }
-function Mesocycle({mesocycle}:{mesocycle:mesocycle[]|any}){
+function Mesocycle({
+    mesocycle,
+    onDelete,
+    deletingId,
+}:{
+    mesocycle:mesocycle[]|any
+    onDelete?: (mesocycleId: number) => void
+    deletingId?: number | null
+}){
     const navigate = useNavigate()
     function Redirect(e:any){
         const mesoId = e.currentTarget.getAttribute("data-meso-id")
@@ -91,6 +99,18 @@ function Mesocycle({mesocycle}:{mesocycle:mesocycle[]|any}){
                                         Weeks
                                     </div>
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        onDelete?.(item.id)
+                                    }}
+                                    disabled={deletingId === item.id}
+                                    className="rounded border border-red-400/60 px-3 py-1 text-[10px] tracking-[0.2em] uppercase text-red-200 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+                                    style={{ fontFamily: "JetBrains Mono, monospace" }}
+                                >
+                                    {deletingId === item.id ? "Deleting" : "Delete"}
+                                </button>
 
                                 <div className="text-[#282828] group-hover:text-[#c8ff00] transition-colors">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

@@ -40,18 +40,21 @@ export type ExerciselogSumAggregateOutputType = {
 
 export type ExerciselogMinAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   exerciseId: number | null
   sessionId: number | null
 }
 
 export type ExerciselogMaxAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   exerciseId: number | null
   sessionId: number | null
 }
 
 export type ExerciselogCountAggregateOutputType = {
   id: number
+  deletedAt: number
   exerciseId: number
   sessionId: number
   _all: number
@@ -72,18 +75,21 @@ export type ExerciselogSumAggregateInputType = {
 
 export type ExerciselogMinAggregateInputType = {
   id?: true
+  deletedAt?: true
   exerciseId?: true
   sessionId?: true
 }
 
 export type ExerciselogMaxAggregateInputType = {
   id?: true
+  deletedAt?: true
   exerciseId?: true
   sessionId?: true
 }
 
 export type ExerciselogCountAggregateInputType = {
   id?: true
+  deletedAt?: true
   exerciseId?: true
   sessionId?: true
   _all?: true
@@ -177,6 +183,7 @@ export type ExerciselogGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type ExerciselogGroupByOutputType = {
   id: number
+  deletedAt: Date | null
   exerciseId: number
   sessionId: number
   _count: ExerciselogCountAggregateOutputType | null
@@ -206,6 +213,7 @@ export type ExerciselogWhereInput = {
   OR?: Prisma.ExerciselogWhereInput[]
   NOT?: Prisma.ExerciselogWhereInput | Prisma.ExerciselogWhereInput[]
   id?: Prisma.IntFilter<"Exerciselog"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Exerciselog"> | Date | string | null
   exerciseId?: Prisma.IntFilter<"Exerciselog"> | number
   sessionId?: Prisma.IntFilter<"Exerciselog"> | number
   session?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
@@ -215,6 +223,7 @@ export type ExerciselogWhereInput = {
 
 export type ExerciselogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   exerciseId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   session?: Prisma.SessionOrderByWithRelationInput
@@ -228,6 +237,7 @@ export type ExerciselogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ExerciselogWhereInput | Prisma.ExerciselogWhereInput[]
   OR?: Prisma.ExerciselogWhereInput[]
   NOT?: Prisma.ExerciselogWhereInput | Prisma.ExerciselogWhereInput[]
+  deletedAt?: Prisma.DateTimeNullableFilter<"Exerciselog"> | Date | string | null
   exerciseId?: Prisma.IntFilter<"Exerciselog"> | number
   sessionId?: Prisma.IntFilter<"Exerciselog"> | number
   session?: Prisma.XOR<Prisma.SessionScalarRelationFilter, Prisma.SessionWhereInput>
@@ -237,6 +247,7 @@ export type ExerciselogWhereUniqueInput = Prisma.AtLeast<{
 
 export type ExerciselogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   exerciseId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
   _count?: Prisma.ExerciselogCountOrderByAggregateInput
@@ -251,11 +262,13 @@ export type ExerciselogScalarWhereWithAggregatesInput = {
   OR?: Prisma.ExerciselogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ExerciselogScalarWhereWithAggregatesInput | Prisma.ExerciselogScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Exerciselog"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Exerciselog"> | Date | string | null
   exerciseId?: Prisma.IntWithAggregatesFilter<"Exerciselog"> | number
   sessionId?: Prisma.IntWithAggregatesFilter<"Exerciselog"> | number
 }
 
 export type ExerciselogCreateInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutExerciselogsInput
   exercise: Prisma.ExerciseCreateNestedOneWithoutExerciselogsInput
   set?: Prisma.SetCreateNestedManyWithoutExerciselogInput
@@ -263,12 +276,14 @@ export type ExerciselogCreateInput = {
 
 export type ExerciselogUncheckedCreateInput = {
   id?: number
+  deletedAt?: Date | string | null
   exerciseId: number
   sessionId: number
   set?: Prisma.SetUncheckedCreateNestedManyWithoutExerciselogInput
 }
 
 export type ExerciselogUpdateInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutExerciselogsNestedInput
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutExerciselogsNestedInput
   set?: Prisma.SetUpdateManyWithoutExerciselogNestedInput
@@ -276,6 +291,7 @@ export type ExerciselogUpdateInput = {
 
 export type ExerciselogUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciseId?: Prisma.IntFieldUpdateOperationsInput | number
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.SetUncheckedUpdateManyWithoutExerciselogNestedInput
@@ -283,16 +299,18 @@ export type ExerciselogUncheckedUpdateInput = {
 
 export type ExerciselogCreateManyInput = {
   id?: number
+  deletedAt?: Date | string | null
   exerciseId: number
   sessionId: number
 }
 
 export type ExerciselogUpdateManyMutationInput = {
-
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExerciselogUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciseId?: Prisma.IntFieldUpdateOperationsInput | number
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -314,6 +332,7 @@ export type ExerciselogExerciseIdSessionIdCompoundUniqueInput = {
 
 export type ExerciselogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   exerciseId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
 }
@@ -326,12 +345,14 @@ export type ExerciselogAvgOrderByAggregateInput = {
 
 export type ExerciselogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   exerciseId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
 }
 
 export type ExerciselogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   exerciseId?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
 }
@@ -446,12 +467,14 @@ export type ExerciselogUpdateOneRequiredWithoutSetNestedInput = {
 }
 
 export type ExerciselogCreateWithoutSessionInput = {
+  deletedAt?: Date | string | null
   exercise: Prisma.ExerciseCreateNestedOneWithoutExerciselogsInput
   set?: Prisma.SetCreateNestedManyWithoutExerciselogInput
 }
 
 export type ExerciselogUncheckedCreateWithoutSessionInput = {
   id?: number
+  deletedAt?: Date | string | null
   exerciseId: number
   set?: Prisma.SetUncheckedCreateNestedManyWithoutExerciselogInput
 }
@@ -487,17 +510,20 @@ export type ExerciselogScalarWhereInput = {
   OR?: Prisma.ExerciselogScalarWhereInput[]
   NOT?: Prisma.ExerciselogScalarWhereInput | Prisma.ExerciselogScalarWhereInput[]
   id?: Prisma.IntFilter<"Exerciselog"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Exerciselog"> | Date | string | null
   exerciseId?: Prisma.IntFilter<"Exerciselog"> | number
   sessionId?: Prisma.IntFilter<"Exerciselog"> | number
 }
 
 export type ExerciselogCreateWithoutExerciseInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutExerciselogsInput
   set?: Prisma.SetCreateNestedManyWithoutExerciselogInput
 }
 
 export type ExerciselogUncheckedCreateWithoutExerciseInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
   set?: Prisma.SetUncheckedCreateNestedManyWithoutExerciselogInput
 }
@@ -529,12 +555,14 @@ export type ExerciselogUpdateManyWithWhereWithoutExerciseInput = {
 }
 
 export type ExerciselogCreateWithoutSetInput = {
+  deletedAt?: Date | string | null
   session: Prisma.SessionCreateNestedOneWithoutExerciselogsInput
   exercise: Prisma.ExerciseCreateNestedOneWithoutExerciselogsInput
 }
 
 export type ExerciselogUncheckedCreateWithoutSetInput = {
   id?: number
+  deletedAt?: Date | string | null
   exerciseId: number
   sessionId: number
 }
@@ -556,55 +584,65 @@ export type ExerciselogUpdateToOneWithWhereWithoutSetInput = {
 }
 
 export type ExerciselogUpdateWithoutSetInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutExerciselogsNestedInput
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutExerciselogsNestedInput
 }
 
 export type ExerciselogUncheckedUpdateWithoutSetInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciseId?: Prisma.IntFieldUpdateOperationsInput | number
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ExerciselogCreateManySessionInput = {
   id?: number
+  deletedAt?: Date | string | null
   exerciseId: number
 }
 
 export type ExerciselogUpdateWithoutSessionInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutExerciselogsNestedInput
   set?: Prisma.SetUpdateManyWithoutExerciselogNestedInput
 }
 
 export type ExerciselogUncheckedUpdateWithoutSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciseId?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.SetUncheckedUpdateManyWithoutExerciselogNestedInput
 }
 
 export type ExerciselogUncheckedUpdateManyWithoutSessionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exerciseId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ExerciselogCreateManyExerciseInput = {
   id?: number
+  deletedAt?: Date | string | null
   sessionId: number
 }
 
 export type ExerciselogUpdateWithoutExerciseInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   session?: Prisma.SessionUpdateOneRequiredWithoutExerciselogsNestedInput
   set?: Prisma.SetUpdateManyWithoutExerciselogNestedInput
 }
 
 export type ExerciselogUncheckedUpdateWithoutExerciseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
   set?: Prisma.SetUncheckedUpdateManyWithoutExerciselogNestedInput
 }
 
 export type ExerciselogUncheckedUpdateManyWithoutExerciseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessionId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -641,6 +679,7 @@ export type ExerciselogCountOutputTypeCountSetArgs<ExtArgs extends runtime.Types
 
 export type ExerciselogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   exerciseId?: boolean
   sessionId?: boolean
   session?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
@@ -651,6 +690,7 @@ export type ExerciselogSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ExerciselogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   exerciseId?: boolean
   sessionId?: boolean
   session?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
@@ -659,6 +699,7 @@ export type ExerciselogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 
 export type ExerciselogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   exerciseId?: boolean
   sessionId?: boolean
   session?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
@@ -667,11 +708,12 @@ export type ExerciselogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 
 export type ExerciselogSelectScalar = {
   id?: boolean
+  deletedAt?: boolean
   exerciseId?: boolean
   sessionId?: boolean
 }
 
-export type ExerciselogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exerciseId" | "sessionId", ExtArgs["result"]["exerciselog"]>
+export type ExerciselogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "deletedAt" | "exerciseId" | "sessionId", ExtArgs["result"]["exerciselog"]>
 export type ExerciselogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   session?: boolean | Prisma.SessionDefaultArgs<ExtArgs>
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
@@ -696,6 +738,7 @@ export type $ExerciselogPayload<ExtArgs extends runtime.Types.Extensions.Interna
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    deletedAt: Date | null
     exerciseId: number
     sessionId: number
   }, ExtArgs["result"]["exerciselog"]>
@@ -1125,6 +1168,7 @@ export interface Prisma__ExerciselogClient<T, Null = never, ExtArgs extends runt
  */
 export interface ExerciselogFieldRefs {
   readonly id: Prisma.FieldRef<"Exerciselog", 'Int'>
+  readonly deletedAt: Prisma.FieldRef<"Exerciselog", 'DateTime'>
   readonly exerciseId: Prisma.FieldRef<"Exerciselog", 'Int'>
   readonly sessionId: Prisma.FieldRef<"Exerciselog", 'Int'>
 }

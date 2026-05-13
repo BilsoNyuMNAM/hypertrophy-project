@@ -37,16 +37,19 @@ export type MesocycleSumAggregateOutputType = {
 export type MesocycleMinAggregateOutputType = {
   id: number | null
   name: string | null
+  deletedAt: Date | null
 }
 
 export type MesocycleMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  deletedAt: Date | null
 }
 
 export type MesocycleCountAggregateOutputType = {
   id: number
   name: number
+  deletedAt: number
   _all: number
 }
 
@@ -62,16 +65,19 @@ export type MesocycleSumAggregateInputType = {
 export type MesocycleMinAggregateInputType = {
   id?: true
   name?: true
+  deletedAt?: true
 }
 
 export type MesocycleMaxAggregateInputType = {
   id?: true
   name?: true
+  deletedAt?: true
 }
 
 export type MesocycleCountAggregateInputType = {
   id?: true
   name?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -164,6 +170,7 @@ export type MesocycleGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type MesocycleGroupByOutputType = {
   id: number
   name: string
+  deletedAt: Date | null
   _count: MesocycleCountAggregateOutputType | null
   _avg: MesocycleAvgAggregateOutputType | null
   _sum: MesocycleSumAggregateOutputType | null
@@ -192,6 +199,7 @@ export type MesocycleWhereInput = {
   NOT?: Prisma.MesocycleWhereInput | Prisma.MesocycleWhereInput[]
   id?: Prisma.IntFilter<"Mesocycle"> | number
   name?: Prisma.StringFilter<"Mesocycle"> | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Mesocycle"> | Date | string | null
   frequency?: Prisma.FrequencyListRelationFilter
   week?: Prisma.WeekListRelationFilter
 }
@@ -199,6 +207,7 @@ export type MesocycleWhereInput = {
 export type MesocycleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   frequency?: Prisma.FrequencyOrderByRelationAggregateInput
   week?: Prisma.WeekOrderByRelationAggregateInput
 }
@@ -209,6 +218,7 @@ export type MesocycleWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MesocycleWhereInput | Prisma.MesocycleWhereInput[]
   OR?: Prisma.MesocycleWhereInput[]
   NOT?: Prisma.MesocycleWhereInput | Prisma.MesocycleWhereInput[]
+  deletedAt?: Prisma.DateTimeNullableFilter<"Mesocycle"> | Date | string | null
   frequency?: Prisma.FrequencyListRelationFilter
   week?: Prisma.WeekListRelationFilter
 }, "id" | "name">
@@ -216,6 +226,7 @@ export type MesocycleWhereUniqueInput = Prisma.AtLeast<{
 export type MesocycleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MesocycleCountOrderByAggregateInput
   _avg?: Prisma.MesocycleAvgOrderByAggregateInput
   _max?: Prisma.MesocycleMaxOrderByAggregateInput
@@ -229,10 +240,12 @@ export type MesocycleScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MesocycleScalarWhereWithAggregatesInput | Prisma.MesocycleScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Mesocycle"> | number
   name?: Prisma.StringWithAggregatesFilter<"Mesocycle"> | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Mesocycle"> | Date | string | null
 }
 
 export type MesocycleCreateInput = {
   name: string
+  deletedAt?: Date | string | null
   frequency?: Prisma.FrequencyCreateNestedManyWithoutMesocycleInput
   week?: Prisma.WeekCreateNestedManyWithoutMesocycleInput
 }
@@ -240,12 +253,14 @@ export type MesocycleCreateInput = {
 export type MesocycleUncheckedCreateInput = {
   id?: number
   name: string
+  deletedAt?: Date | string | null
   frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMesocycleInput
   week?: Prisma.WeekUncheckedCreateNestedManyWithoutMesocycleInput
 }
 
 export type MesocycleUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frequency?: Prisma.FrequencyUpdateManyWithoutMesocycleNestedInput
   week?: Prisma.WeekUpdateManyWithoutMesocycleNestedInput
 }
@@ -253,6 +268,7 @@ export type MesocycleUpdateInput = {
 export type MesocycleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMesocycleNestedInput
   week?: Prisma.WeekUncheckedUpdateManyWithoutMesocycleNestedInput
 }
@@ -260,20 +276,24 @@ export type MesocycleUncheckedUpdateInput = {
 export type MesocycleCreateManyInput = {
   id?: number
   name: string
+  deletedAt?: Date | string | null
 }
 
 export type MesocycleUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MesocycleUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MesocycleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type MesocycleAvgOrderByAggregateInput = {
@@ -283,11 +303,13 @@ export type MesocycleAvgOrderByAggregateInput = {
 export type MesocycleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type MesocycleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type MesocycleSumOrderByAggregateInput = {
@@ -301,6 +323,10 @@ export type MesocycleScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -341,12 +367,14 @@ export type MesocycleUpdateOneRequiredWithoutFrequencyNestedInput = {
 
 export type MesocycleCreateWithoutWeekInput = {
   name: string
+  deletedAt?: Date | string | null
   frequency?: Prisma.FrequencyCreateNestedManyWithoutMesocycleInput
 }
 
 export type MesocycleUncheckedCreateWithoutWeekInput = {
   id?: number
   name: string
+  deletedAt?: Date | string | null
   frequency?: Prisma.FrequencyUncheckedCreateNestedManyWithoutMesocycleInput
 }
 
@@ -368,23 +396,27 @@ export type MesocycleUpdateToOneWithWhereWithoutWeekInput = {
 
 export type MesocycleUpdateWithoutWeekInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frequency?: Prisma.FrequencyUpdateManyWithoutMesocycleNestedInput
 }
 
 export type MesocycleUncheckedUpdateWithoutWeekInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frequency?: Prisma.FrequencyUncheckedUpdateManyWithoutMesocycleNestedInput
 }
 
 export type MesocycleCreateWithoutFrequencyInput = {
   name: string
+  deletedAt?: Date | string | null
   week?: Prisma.WeekCreateNestedManyWithoutMesocycleInput
 }
 
 export type MesocycleUncheckedCreateWithoutFrequencyInput = {
   id?: number
   name: string
+  deletedAt?: Date | string | null
   week?: Prisma.WeekUncheckedCreateNestedManyWithoutMesocycleInput
 }
 
@@ -406,12 +438,14 @@ export type MesocycleUpdateToOneWithWhereWithoutFrequencyInput = {
 
 export type MesocycleUpdateWithoutFrequencyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateManyWithoutMesocycleNestedInput
 }
 
 export type MesocycleUncheckedUpdateWithoutFrequencyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUncheckedUpdateManyWithoutMesocycleNestedInput
 }
 
@@ -458,6 +492,7 @@ export type MesocycleCountOutputTypeCountWeekArgs<ExtArgs extends runtime.Types.
 export type MesocycleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  deletedAt?: boolean
   frequency?: boolean | Prisma.Mesocycle$frequencyArgs<ExtArgs>
   week?: boolean | Prisma.Mesocycle$weekArgs<ExtArgs>
   _count?: boolean | Prisma.MesocycleCountOutputTypeDefaultArgs<ExtArgs>
@@ -466,19 +501,22 @@ export type MesocycleSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type MesocycleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  deletedAt?: boolean
 }, ExtArgs["result"]["mesocycle"]>
 
 export type MesocycleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  deletedAt?: boolean
 }, ExtArgs["result"]["mesocycle"]>
 
 export type MesocycleSelectScalar = {
   id?: boolean
   name?: boolean
+  deletedAt?: boolean
 }
 
-export type MesocycleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["mesocycle"]>
+export type MesocycleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "deletedAt", ExtArgs["result"]["mesocycle"]>
 export type MesocycleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   frequency?: boolean | Prisma.Mesocycle$frequencyArgs<ExtArgs>
   week?: boolean | Prisma.Mesocycle$weekArgs<ExtArgs>
@@ -496,6 +534,7 @@ export type $MesocyclePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    deletedAt: Date | null
   }, ExtArgs["result"]["mesocycle"]>
   composites: {}
 }
@@ -923,6 +962,7 @@ export interface Prisma__MesocycleClient<T, Null = never, ExtArgs extends runtim
 export interface MesocycleFieldRefs {
   readonly id: Prisma.FieldRef<"Mesocycle", 'Int'>
   readonly name: Prisma.FieldRef<"Mesocycle", 'String'>
+  readonly deletedAt: Prisma.FieldRef<"Mesocycle", 'DateTime'>
 }
     
 

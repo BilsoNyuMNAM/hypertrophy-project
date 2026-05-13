@@ -1,8 +1,13 @@
 import { useNavigate, useParams,useSearchParams } from "react-router-dom"
 import { useState, useEffect} from "react"
 import Sessioncard from "../components/Sessioncard"
+import { useQuery } from "@tanstack/react-query"
+type SessionListItem = {
+    id: number
+    session_name: string
+}
+
 function Createsessionpage({weekId, setDisplaySession}:{weekId:string, setDisplaySession:any}){
-    const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const mesoId = searchParams.get("mesoId")
     const [sessionName, setSessionName] = useState("");
@@ -60,59 +65,65 @@ export default function Weekpage(){
     const navigate = useNavigate()
     const {weekId} = useParams()
     const [displaySession, setDisplaySession] = useState(false)
-    const [sessionName, setSessionName] = useState([])
-    const [done, setDone] = useState(false)
-    let letter = done? "Completed":"Mark as complete"
-    // const [totalSession, setTotalSession] = useState(0);
+    const [weekStatus, setWeekStatus] = useState<{
+        unlocked: boolean
+        nextWeekUnlocked: boolean
+        isFinalWeek: boolean
+    } | null>(null)
+    const [loadError, setLoadError] = useState("")
+    
 
     const [searchParams] = useSearchParams()
     const mesoId = searchParams.get("mesoId") || ""
+    const {data, refetch} = useQuery({
+        queryKey: ["sessions", weekId],
+        queryFn: async function(){
+            const response = await fetch(`http://localhost:8787/api/v1/mesoCycle/session/all/${weekId}`)
+            return await response.json()
+        }
+    })
 
-    const sessionDisplay = sessionName.length == 0?<p>No session to display </p>: sessionName.map((session, index)=>{
+    const sessionDisplay = data?.result.sessions.length == 0?<p>No session to display </p>: data?.result.sessions.map((session, index)=>{
         return(
-            //@ts-ignore
-            <Sessioncard id={session.id} sessionName={session.session_name} number={index+1} weekId={weekId || ""} mesoId={mesoId}/>
+            <Sessioncard
+                key={session.id}
+                id={session.id}
+                sessionName={session.session_name}
+                number={index+1}
+                weekId={weekId || ""}
+                mesoId={mesoId}
+                onDeleteSession={deleteSession}
+            />
         )
     })
-    //fetch to get all the session for the specific week
-    function getAllSession(){
-        const url = `http://localhost:8787/api/v1/mesoCycle/session/all/${weekId}`
-        fetch(url)
-        .then((res)=>{
-            res.json().then((data)=>{
-                console.log("All session of the week is fetched", data)
-                const resultpart = data.result.sessions
-                console.log("result part of the data", resultpart)
-                setSessionName(resultpart)
-                setDone(data.result.weekStatus.completed)
-                // setTotalSession(data.totalSessions)
-            })
-        })
-    }
-    useEffect(()=>{
-        getAllSession()
 
-    },[])
-    async function updateBoolean(booleanValue:boolean){
-        const url = `http://localhost:8787/api/v1/mesoCycle/session/booleanUpdate/${weekId}`
-        const result = await fetch(url,{
-            method:"PATCH",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                booleanStatus: booleanValue
-            })
-        })
-        if(result.status === 200){
-            console.log("boolean value updated successfully")
+    async function deleteSession(sessionId: number, currentSessionName: string) {
+        const deleteConfirmed = window.confirm(
+            `Delete ${currentSessionName}? This removes the session from the current week.`
+        )
+
+        if (!deleteConfirmed) {
+            return
         }
-        else{
-            console.log("failed to update the boolean value")
+
+        const response = await fetch(
+            `http://localhost:8787/api/v1/mesoCycle/session/${sessionId}`,
+            {
+                method: "DELETE",
+            }
+        )
+        const data = await response.json()
+
+        if (!response.ok) {
+            setLoadError(data.message || "Unable to delete session")
+            return
         }
+
+        setLoadError("")
+        refetch();
     }
 
-
+    
     return(
         <div className="h-screen w-full bg-black text-white overflow-y-auto">
             <div className="w-full h-screen max-w-5xl mx-auto mt-7 ">
@@ -120,7 +131,7 @@ export default function Weekpage(){
                     <div className={`${displaySession?"fixed":""}  z-20 mb-10 `}>
                         <button onClick={()=>{navigate(-1)}}className="cursor-pointer font-spaceMono">← Back to Week</button>
                     </div>
-                    {displaySession? <Createsessionpage weekId={weekId} setDisplaySession={setDisplaySession}/>:
+                    {displaySession? <Createsessionpage weekId={weekId || ""} setDisplaySession={setDisplaySession}/>:
                     <div>
                         <div>
                             <div>
@@ -129,19 +140,20 @@ export default function Weekpage(){
                             <div>
                                 <div className="flex justify-between items-center mb-10 pr-4">
                                     <h1 className="text-4xl font-spaceMono font-bold">SESSION PLAN</h1>
-                                    <div className="flex gap-2 items-center border rounded-lg px-4 py-2">
-                                        <div onClick={() => setDone(!done)} className={`${done?" flex items-center justify-center bg-white":"border"} rounded-full h-5 w-5`}>
-                                            {done ? <><span className="text-black">✓</span></>:null}
-                                        </div>
-                                        <button onClick={() => {
-                                            setDone(!done),
-                                            updateBoolean(!done)
-                                        }}
-                                    className={`${done? " text-gray-400 line-through" :"bg-black  text-white"} font-spaceMono text-xs tracking-wide px-2 py-1 rounded-lg `}
-                                    >{letter}</button>
+                                    <div className="flex gap-2 items-center border rounded-lg px-4 py-2 text-xs font-spaceMono text-gray-300">
+                                        {weekStatus?.isFinalWeek
+                                            ? "FINAL WEEK"
+                                            : weekStatus?.nextWeekUnlocked
+                                                ? "NEXT WEEK UNLOCKED"
+                                                : "NEXT WEEK LOCKED"}
                                     </div>
                                     
                                 </div>
+                                {loadError ? (
+                                    <div className="mb-4 rounded border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+                                        {loadError}
+                                    </div>
+                                ) : null}
                                 <div>
                                     <div className="p-4">
                                         <div className="mb-10">

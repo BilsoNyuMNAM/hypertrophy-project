@@ -44,6 +44,7 @@ export type SetSumAggregateOutputType = {
 
 export type SetMinAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   reps: number | null
   weight: number | null
   rir: number | null
@@ -52,6 +53,7 @@ export type SetMinAggregateOutputType = {
 
 export type SetMaxAggregateOutputType = {
   id: number | null
+  deletedAt: Date | null
   reps: number | null
   weight: number | null
   rir: number | null
@@ -60,6 +62,7 @@ export type SetMaxAggregateOutputType = {
 
 export type SetCountAggregateOutputType = {
   id: number
+  deletedAt: number
   reps: number
   weight: number
   rir: number
@@ -86,6 +89,7 @@ export type SetSumAggregateInputType = {
 
 export type SetMinAggregateInputType = {
   id?: true
+  deletedAt?: true
   reps?: true
   weight?: true
   rir?: true
@@ -94,6 +98,7 @@ export type SetMinAggregateInputType = {
 
 export type SetMaxAggregateInputType = {
   id?: true
+  deletedAt?: true
   reps?: true
   weight?: true
   rir?: true
@@ -102,6 +107,7 @@ export type SetMaxAggregateInputType = {
 
 export type SetCountAggregateInputType = {
   id?: true
+  deletedAt?: true
   reps?: true
   weight?: true
   rir?: true
@@ -197,6 +203,7 @@ export type SetGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type SetGroupByOutputType = {
   id: number
+  deletedAt: Date | null
   reps: number
   weight: number
   rir: number
@@ -228,6 +235,7 @@ export type SetWhereInput = {
   OR?: Prisma.SetWhereInput[]
   NOT?: Prisma.SetWhereInput | Prisma.SetWhereInput[]
   id?: Prisma.IntFilter<"Set"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Set"> | Date | string | null
   reps?: Prisma.IntFilter<"Set"> | number
   weight?: Prisma.FloatFilter<"Set"> | number
   rir?: Prisma.IntFilter<"Set"> | number
@@ -237,6 +245,7 @@ export type SetWhereInput = {
 
 export type SetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reps?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   rir?: Prisma.SortOrder
@@ -249,6 +258,7 @@ export type SetWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SetWhereInput | Prisma.SetWhereInput[]
   OR?: Prisma.SetWhereInput[]
   NOT?: Prisma.SetWhereInput | Prisma.SetWhereInput[]
+  deletedAt?: Prisma.DateTimeNullableFilter<"Set"> | Date | string | null
   reps?: Prisma.IntFilter<"Set"> | number
   weight?: Prisma.FloatFilter<"Set"> | number
   rir?: Prisma.IntFilter<"Set"> | number
@@ -258,6 +268,7 @@ export type SetWhereUniqueInput = Prisma.AtLeast<{
 
 export type SetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reps?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   rir?: Prisma.SortOrder
@@ -274,6 +285,7 @@ export type SetScalarWhereWithAggregatesInput = {
   OR?: Prisma.SetScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SetScalarWhereWithAggregatesInput | Prisma.SetScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Set"> | number
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Set"> | Date | string | null
   reps?: Prisma.IntWithAggregatesFilter<"Set"> | number
   weight?: Prisma.FloatWithAggregatesFilter<"Set"> | number
   rir?: Prisma.IntWithAggregatesFilter<"Set"> | number
@@ -281,6 +293,7 @@ export type SetScalarWhereWithAggregatesInput = {
 }
 
 export type SetCreateInput = {
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
@@ -289,6 +302,7 @@ export type SetCreateInput = {
 
 export type SetUncheckedCreateInput = {
   id?: number
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
@@ -296,6 +310,7 @@ export type SetUncheckedCreateInput = {
 }
 
 export type SetUpdateInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -304,6 +319,7 @@ export type SetUpdateInput = {
 
 export type SetUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -312,6 +328,7 @@ export type SetUncheckedUpdateInput = {
 
 export type SetCreateManyInput = {
   id?: number
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
@@ -319,6 +336,7 @@ export type SetCreateManyInput = {
 }
 
 export type SetUpdateManyMutationInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -326,6 +344,7 @@ export type SetUpdateManyMutationInput = {
 
 export type SetUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -344,6 +363,7 @@ export type SetOrderByRelationAggregateInput = {
 
 export type SetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   reps?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   rir?: Prisma.SortOrder
@@ -360,6 +380,7 @@ export type SetAvgOrderByAggregateInput = {
 
 export type SetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   reps?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   rir?: Prisma.SortOrder
@@ -368,6 +389,7 @@ export type SetMaxOrderByAggregateInput = {
 
 export type SetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   reps?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   rir?: Prisma.SortOrder
@@ -433,6 +455,7 @@ export type FloatFieldUpdateOperationsInput = {
 }
 
 export type SetCreateWithoutExerciselogInput = {
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
@@ -440,6 +463,7 @@ export type SetCreateWithoutExerciselogInput = {
 
 export type SetUncheckedCreateWithoutExerciselogInput = {
   id?: number
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
@@ -476,6 +500,7 @@ export type SetScalarWhereInput = {
   OR?: Prisma.SetScalarWhereInput[]
   NOT?: Prisma.SetScalarWhereInput | Prisma.SetScalarWhereInput[]
   id?: Prisma.IntFilter<"Set"> | number
+  deletedAt?: Prisma.DateTimeNullableFilter<"Set"> | Date | string | null
   reps?: Prisma.IntFilter<"Set"> | number
   weight?: Prisma.FloatFilter<"Set"> | number
   rir?: Prisma.IntFilter<"Set"> | number
@@ -484,12 +509,14 @@ export type SetScalarWhereInput = {
 
 export type SetCreateManyExerciselogInput = {
   id?: number
+  deletedAt?: Date | string | null
   reps: number
   weight: number
   rir: number
 }
 
 export type SetUpdateWithoutExerciselogInput = {
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -497,6 +524,7 @@ export type SetUpdateWithoutExerciselogInput = {
 
 export type SetUncheckedUpdateWithoutExerciselogInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -504,6 +532,7 @@ export type SetUncheckedUpdateWithoutExerciselogInput = {
 
 export type SetUncheckedUpdateManyWithoutExerciselogInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   weight?: Prisma.FloatFieldUpdateOperationsInput | number
   rir?: Prisma.IntFieldUpdateOperationsInput | number
@@ -513,6 +542,7 @@ export type SetUncheckedUpdateManyWithoutExerciselogInput = {
 
 export type SetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   reps?: boolean
   weight?: boolean
   rir?: boolean
@@ -522,6 +552,7 @@ export type SetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 
 export type SetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   reps?: boolean
   weight?: boolean
   rir?: boolean
@@ -531,6 +562,7 @@ export type SetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
 
 export type SetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  deletedAt?: boolean
   reps?: boolean
   weight?: boolean
   rir?: boolean
@@ -540,13 +572,14 @@ export type SetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
 
 export type SetSelectScalar = {
   id?: boolean
+  deletedAt?: boolean
   reps?: boolean
   weight?: boolean
   rir?: boolean
   exerciselogId?: boolean
 }
 
-export type SetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reps" | "weight" | "rir" | "exerciselogId", ExtArgs["result"]["set"]>
+export type SetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "deletedAt" | "reps" | "weight" | "rir" | "exerciselogId", ExtArgs["result"]["set"]>
 export type SetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exerciselog?: boolean | Prisma.ExerciselogDefaultArgs<ExtArgs>
 }
@@ -564,6 +597,7 @@ export type $SetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    deletedAt: Date | null
     reps: number
     weight: number
     rir: number
@@ -993,6 +1027,7 @@ export interface Prisma__SetClient<T, Null = never, ExtArgs extends runtime.Type
  */
 export interface SetFieldRefs {
   readonly id: Prisma.FieldRef<"Set", 'Int'>
+  readonly deletedAt: Prisma.FieldRef<"Set", 'DateTime'>
   readonly reps: Prisma.FieldRef<"Set", 'Int'>
   readonly weight: Prisma.FieldRef<"Set", 'Float'>
   readonly rir: Prisma.FieldRef<"Set", 'Int'>
